@@ -58,3 +58,42 @@
 	background-color: #F2F2F2;
 	border: 1px solid #A3A3A3;
 }
+
+
+/* Prevent Flash of unstyled content */
+.jsenabled .yui3-tabview-loading {
+	display: none;
+}
+
+
+/* Style when JavaScript is disabled */
+.filter-tabs-tabgroup.yui3-tabview-loading .filter-tabs-titlegroup {
+	list-style: none;
+	margin-left: 0;
+}
+
+.filter-tabs-tabgroup.yui3-tabview-loading .filter-tabs-title {
+	border-right: 1px solid lightgrey;
+	float: left;
+	margin-right: 10px;
+	padding-right: 10px;
+}
+
+.filter-tabs-tabgroup.yui3-tabview-loading .filter-tabs-title:last-child {
+	border-right: none;
+	margin-right: 0;
+	padding-right: 0;
+}
+
+.filter-tabs-tabgroup.yui3-tabview-loading .filter-tabs-textgroup {
+	clear: both;
+}
+
+.filter-tabs-tabgroup.yui3-tabview-loading .filter-tabs-text:first-child {
+	border-top: 1px solid lightgrey;
+}
+
+.filter-tabs-tabgroup.yui3-tabview-loading .filter-tabs-text {
+	border-bottom: 1px dashed lightgrey;
+	padding: 5px 0px;
+}

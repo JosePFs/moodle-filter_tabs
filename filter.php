@@ -27,19 +27,19 @@ class filter_tabs extends moodle_text_filter {
 			$id = rand()*100000;
 
 			// Start tab group
-			$newtext ='<div id="tabgroup-'.$id.'">';
+			$newtext ='<div id="filter-tabs-tabgroup-'.$id.'" class="filter-tabs-tabgroup yui3-tabview-loading">';
 
 			// Create tab titles
-			$newtext.='<ul>';
+			$newtext.='<ul class="filter-tabs-titlegroup">';
 			foreach ($matches[1] as $key => $tabtitle) {
-				$newtext.= '<li><a href="#tab-'.$id.'-'.($key+1).'">'.$tabtitle.'</a></li>';
+				$newtext.= '<li class="filter-tabs-title"><a href="#filter-tabs-text-'.$id.'-'.($key+1).'">'.$tabtitle.'</a></li>';
 			}
 			$newtext.='</ul>';
 
 			// Create tab texts
-			$newtext.='<div>';
+			$newtext.='<div class="filter-tabs-textgroup">';
 			foreach ($matches[2] as $key => $tabtext) {
-				$newtext.= '<div id="tab-'.$id.'-'.($key+1).'"><p>'.$tabtext.'</p></div>';
+				$newtext.= '<div id="filter-tabs-text-'.$id.'-'.($key+1).'" class="filter-tabs-text"><p>'.$tabtext.'</p></div>';
 			}
 			$newtext.='</div>';
 
@@ -49,7 +49,7 @@ class filter_tabs extends moodle_text_filter {
 			// Add YUI enhancement
 			$newtext.='<script type="text/javascript">
 							YUI().use(\'tabview\', function(Y) {
-							var tabview = new Y.TabView({srcNode:\'#tabgroup-'.$id.'\'});
+							var tabview = new Y.TabView({srcNode:\'#filter-tabs-tabgroup-'.$id.'\'});
 							tabview.render();
 							});
 					</script>';
