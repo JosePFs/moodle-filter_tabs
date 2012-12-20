@@ -15,3 +15,4 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 $string['filtername'] = 'Tabs';
+$string['pluginname'] = 'Tabs';

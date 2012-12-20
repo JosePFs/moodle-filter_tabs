@@ -10,6 +10,7 @@ This plugin requires Moodle 2.2+
 
 Changes
 =======
+2012-12-20 - Add missing pluginname zu language file
 2012-11-27 - Initial version
 
 
