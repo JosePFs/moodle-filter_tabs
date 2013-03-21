@@ -10,6 +10,7 @@ This plugin requires Moodle 2.4+
 
 Changes
 =======
+2013-03-18 - Small code improvement, Code cleanup according to moodle codechecker
 2013-02-18 - Check compatibility for Moodle 2.4
 2012-12-20 - Add missing pluginname zu language file
 2012-11-27 - Initial version
@@ -71,6 +72,13 @@ Moodle release support
 Due to limited ressources, filter_tabs is only maintained for the most recent major release of Moodle. However, previous versions of this plugin which work in legacy major releases of Moodle are still available as-is without any further updates in the Moodle Plugins repository.
 
 There may be several weeks after a new major release of Moodle has been published until I can do a compatibility check and fix problems if necessary. If you encounter problems with a new major release of Moodle - or can confirm that filter_tabs still works with a new major relase - please let me know on https://github.com/abias/moodle-filter_tabs/issues
+
+
+Right-to-left support
+=====================
+This plugin has not been tested with Moodle's support for right-to-left (RTL) languages.
+If you want to use this plugin with a RTL language and it doesn't work as-is, you are free to send me a pull request on
+github with modifications.
 
 
 Copyright
