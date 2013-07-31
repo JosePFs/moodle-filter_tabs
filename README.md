@@ -5,11 +5,13 @@ Moodle filter which creates tabs in textfields
 
 Requirements
 ============
-This plugin requires Moodle 2.4+
+This plugin requires Moodle 2.5+
 
 
 Changes
 =======
+2013-07-30 - Transfer Github repository from github.com/abias/... to github.com/moodleuulm/...; Please update your Git paths if necessary
+2013-07-30 - Check compatibility for Moodle 2.5, no functionality change
 2013-03-18 - Small code improvement, Code cleanup according to moodle codechecker
 2013-02-18 - Check compatibility for Moodle 2.4
 2012-12-20 - Add missing pluginname zu language file
@@ -21,7 +23,7 @@ Installation
 Install the plugin like any other plugin to folder
 /filter/tabs
 
-See http://docs.moodle.org/24/en/Installing_plugins for details on installing Moodle plugins
+See http://docs.moodle.org/25/en/Installing_plugins for details on installing Moodle plugins
 
 
 Usage
@@ -64,14 +66,14 @@ Further information
 ===================
 filter_tabs is found in the Moodle Plugins repository: http://moodle.org/plugins/view.php?plugin=filter_tabs
 
-Report a bug or suggest an improvement: https://github.com/abias/moodle-filter_tabs/issues
+Report a bug or suggest an improvement: https://github.com/moodleuulm/moodle-filter_tabs/issues
 
 
 Moodle release support
 ======================
 Due to limited ressources, filter_tabs is only maintained for the most recent major release of Moodle. However, previous versions of this plugin which work in legacy major releases of Moodle are still available as-is without any further updates in the Moodle Plugins repository.
 
-There may be several weeks after a new major release of Moodle has been published until I can do a compatibility check and fix problems if necessary. If you encounter problems with a new major release of Moodle - or can confirm that filter_tabs still works with a new major relase - please let me know on https://github.com/abias/moodle-filter_tabs/issues
+There may be several weeks after a new major release of Moodle has been published until I can do a compatibility check and fix problems if necessary. If you encounter problems with a new major release of Moodle - or can confirm that filter_tabs still works with a new major relase - please let me know on https://github.com/moodleuulm/moodle-filter_tabs/issues
 
 
 Right-to-left support
