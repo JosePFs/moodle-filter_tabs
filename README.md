@@ -5,11 +5,12 @@ Moodle filter which creates tabs in textfields
 
 Requirements
 ============
-This plugin requires Moodle 2.5+
+This plugin requires Moodle 2.6+
 
 
 Changes
 =======
+2014-01-31 - Check compatibility for Moodle 2.6, no functionality change
 2013-07-30 - Transfer Github repository from github.com/abias/... to github.com/moodleuulm/...; Please update your Git paths if necessary
 2013-07-30 - Check compatibility for Moodle 2.5, no functionality change
 2013-03-18 - Small code improvement, Code cleanup according to moodle codechecker
@@ -23,7 +24,7 @@ Installation
 Install the plugin like any other plugin to folder
 /filter/tabs
 
-See http://docs.moodle.org/25/en/Installing_plugins for details on installing Moodle plugins
+See http://docs.moodle.org/26/en/Installing_plugins for details on installing Moodle plugins
 
 
 Usage
