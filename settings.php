@@ -14,10 +14,21 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Filter "tabs" - Settings
+ *
+ * @package     filter
+ * @subpackage  filter_tabs
+ * @copyright   2014 Alexander Bias, University of Ulm <alexander.bias@uni-ulm.de>
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 defined('MOODLE_INTERNAL') || die();
 
-$string['filtername'] = 'Tabs';
-$string['pluginname'] = 'Tabs';
-$string['bootstrapheading'] = 'Bootstrap';
-$string['enablebootstrap'] = 'Enable Bootstrap tabs (Experimental)';
-$string['enablebootstrap_desc'] = 'Enable Bootstrap tabs for use with Bootstrap based themes. Disabling this option will use legacy YUI tabs like in previous versions. Please note that this feature is experimental (see /filter/tabs/README.md for details).';
+if ($ADMIN->fulltree) {
+    // Appearance
+    $settings->add(new admin_setting_heading('filter_tabs/bootstrapheading', get_string('bootstrapheading', 'filter_tabs'), ''));
+
+    $settings->add(new admin_setting_configcheckbox('filter_tabs/enablebootstrap', get_string('enablebootstrap', 'filter_tabs'),
+                        get_string('enablebootstrap_desc', 'filter_tabs'), 0));
+}

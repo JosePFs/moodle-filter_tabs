@@ -1,3 +1,7 @@
+/**********************************/
+/* Tab styles for legacy YUI tabs */
+/**********************************/
+
 /* Tab styles adopted from filepicker style */
 
 
@@ -96,4 +100,16 @@
 .filter-tabs-tabgroup.yui3-tabview-loading .filter-tabs-text {
     border-bottom: 1px dashed lightgrey;
     padding: 5px 0px;
+}
+
+
+
+/*********************************/
+/* Tab styles for Bootstrap tabs */
+/*********************************/
+
+.filter-tabs-bootstrap .tab-content {
+    padding-right: 12px;
+    padding-left: 12px;
+    padding-bottom: 12px;
 }
