@@ -27,6 +27,11 @@ defined('MOODLE_INTERNAL') || die();
 
 class filter_tabs extends moodle_text_filter {
 
+    // Static counter for tabgroups
+    // This was implemented with a random number previously, but was changed to a static counter for performance reasons
+    public static $filter_tabs_tabgroup_counter = 1;
+
+
     /*
      * Add the javascript library to enable Bootstrap tabs on this page.
      *
@@ -72,8 +77,8 @@ class filter_tabs extends moodle_text_filter {
         // Do if placeholder is found
         if (count($matches[1]) > 0) {
 
-            // Create random ID for tab group
-            $id = rand()*100000;
+            // Get ID for tab group
+            $id = self::$filter_tabs_tabgroup_counter;
 
             // Provide bootstrap tabs
             if ($filter_tabs_config->enablebootstrap == true) {
@@ -109,6 +114,9 @@ class filter_tabs extends moodle_text_filter {
 
                 // End tab group
                 $newtext .= '</div>';
+
+                // Increase tabgroup counter
+                self::$filter_tabs_tabgroup_counter++;
             }
 
             // Or provide legacy YUI tabs
@@ -140,6 +148,9 @@ class filter_tabs extends moodle_text_filter {
                                 tabview.render();
                                 });
                         </script>';
+
+                // Increase tabgroup counter
+                self::$filter_tabs_tabgroup_counter++;
             }
 
             // Apply filter

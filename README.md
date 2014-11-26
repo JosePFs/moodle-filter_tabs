@@ -10,6 +10,7 @@ This plugin requires Moodle 2.7+
 
 Changes
 -------
+* 2014-10-26 - Change the tabgroup counter from a random number to a static counter for performance reasons
 * 2014-08-29 - Update README file
 * 2014-08-22 - Add support for Bootstrap tabs (experimental)
 * 2014-06-30 - Check compatibility for Moodle 2.7, no functionality change
