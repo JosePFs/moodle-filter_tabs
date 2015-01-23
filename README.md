@@ -7,7 +7,7 @@ Moodle filter which creates tabs in textfields
 Requirements
 ------------
 
-This plugin requires Moodle 2.7+
+This plugin requires Moodle 2.8+
 
 
 Changes
