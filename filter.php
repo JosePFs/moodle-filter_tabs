@@ -50,7 +50,7 @@ class filter_tabs extends moodle_text_filter {
 
             if (empty($jsinitialised)) {
                 $page->requires->jquery();
-                $page->requires->js('/filter/tabs/js/bootstrap-2.3.0.min.js');
+                $page->requires->js('/filter/tabs/js/bootstrap-2.3.2-tab.min.js');
 
                 $jsinitialised = true;
             }

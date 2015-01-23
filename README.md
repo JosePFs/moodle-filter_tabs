@@ -13,6 +13,7 @@ This plugin requires Moodle 2.7+
 Changes
 -------
 
+* 2015-01-23 - Bugfix: Bootstrap tabs interfered custom menu; the filter now loads only bootstrap-tabs.js and not the complete bootstrap.js library anymore
 * 2014-10-26 - Change the tabgroup counter from a random number to a static counter for performance reasons
 * 2014-08-29 - Update README file
 * 2014-08-22 - Add support for Bootstrap tabs (experimental)
