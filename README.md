@@ -92,7 +92,7 @@ filter_tabs provides a fallback for browsers with JavaScript disabled.
 Further information
 -------------------
 
-filter_tabs is found in the Moodle Plugins repository: http://moodle.org/plugins/view.php?plugin=filter_tabs
+filter_tabs is found in the Moodle Plugins repository: https://moodle.org/plugins/view/filter_tabs
 
 Report a bug or suggest an improvement: https://github.com/moodleuulm/moodle-filter_tabs/issues
 
