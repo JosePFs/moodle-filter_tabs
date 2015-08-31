@@ -30,5 +30,5 @@ if ($ADMIN->fulltree) {
     $settings->add(new admin_setting_heading('filter_tabs/bootstrapheading', get_string('bootstrapheading', 'filter_tabs'), ''));
 
     $settings->add(new admin_setting_configcheckbox('filter_tabs/enablebootstrap', get_string('enablebootstrap', 'filter_tabs'),
-                        get_string('enablebootstrap_desc', 'filter_tabs'), 0));
+                        get_string('enablebootstrap_desc', 'filter_tabs'), 1));
 }

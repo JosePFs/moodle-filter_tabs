@@ -19,5 +19,5 @@ defined('MOODLE_INTERNAL') || die();
 $string['filtername'] = 'Tabs';
 $string['pluginname'] = 'Tabs';
 $string['bootstrapheading'] = 'Bootstrap';
-$string['enablebootstrap'] = 'Enable Bootstrap tabs (Experimental)';
-$string['enablebootstrap_desc'] = 'Enable Bootstrap tabs for use with Bootstrap based themes. Disabling this option will use legacy YUI tabs like in previous versions. Please note that this feature is experimental (see /filter/tabs/README.md for details).';
+$string['enablebootstrap'] = 'Enable Bootstrap tabs';
+$string['enablebootstrap_desc'] = 'Enable Bootstrap tabs for use with Bootstrap based themes. Disabling this option will use legacy YUI tabs.';

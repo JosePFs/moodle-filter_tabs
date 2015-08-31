@@ -13,6 +13,7 @@ This plugin requires Moodle 2.9+
 Changes
 -------
 
+* 2015-08-31 - Remove experimental status for Bootstrap tabs and make them default. Settings of existing installations won't be changed.
 * 2015-08-31 - Check compatibility for Moodle 2.9, no functionality change
 * 2015-01-23 - Check compatibility for Moodle 2.8, no functionality change
 * 2015-01-23 - Bugfix: Bootstrap tabs interfered custom menu; the filter now loads only bootstrap-tabs.js and not the complete bootstrap.js library anymore
@@ -68,24 +69,19 @@ will produce this tab group:
 Settings
 --------
 
-When you install filter_tabs with its default settings, it will replace the tab syntax with tabs provided by the YUI JavaScript library which has been used in Moodle for a long time.
+When you install filter_tabs with its default settings, it will replace the tab syntax with tabs provided by the Bootstrap framework which is present in Moodle since Moodle 2.5.
 
-From the Moodle 2.7 version of this plugin on, you can also let the filter replace the tab syntax with tabs provided by the Bootstrap framework which is present in Moodle since Moodle 2.5. Bootstrap tabs conform to modern Bootstrap based themes much better than YUI tabs.
+However, Moodle still ships with the YUI JavaScript library which has been used in Moodle for a long time and which also provides a tabs functionality.
+While the default Bootstrap tabs conform to modern Bootstrap based themes much better than YUI tabs, there might still be the need to have YUI tabs in some installations. filter_tabs will continue to support YUI tabs as long as Moodle core ships YUI.
 
-To make use of this advanced feature, please visit Plugins -> Filters -> Tabs.
-There you can enable Bootstrap tabs.
-
-WARNING:
-As the Bootstrap framework is based on jQuery, but was transformed to YUI for the use in Moodle by Moodle core developers, there is no native support for tabs in Moodle's Bootstrap implementation.
-To make use of Bootstrap tabs, this filter additionally loads jQuery and the original Bootstrap jQuery plugin. This may lead to some unexpected slowdown of the pages rendered by Moodle. Please use this feature only if you understand what happens under the hood.
+To make use of the legacy YUI tabs, please visit Plugins -> Filters -> Tabs.
+There you can disable Bootstrap tabs.
 
 
 Themes
 ------
 
-filter_tabs should work with all themes from moodle core.
-
-filter_tabs' Bootstrap tabs work only with Bootstrap based themes.
+filter_tabs should work with all themes from moodle core and with 3rd party Bootstrap based themes.
 
 filter_tabs provides a fallback for browsers with JavaScript disabled.
 
