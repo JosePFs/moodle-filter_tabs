@@ -7,12 +7,13 @@ Moodle filter which creates tabs in textfields
 Requirements
 ------------
 
-This plugin requires Moodle 2.8+
+This plugin requires Moodle 2.9+
 
 
 Changes
 -------
 
+* 2015-08-31 - Check compatibility for Moodle 2.9, no functionality change
 * 2015-01-23 - Check compatibility for Moodle 2.8, no functionality change
 * 2015-01-23 - Bugfix: Bootstrap tabs interfered custom menu; the filter now loads only bootstrap-tabs.js and not the complete bootstrap.js library anymore
 * 2014-10-26 - Change the tabgroup counter from a random number to a static counter for performance reasons
