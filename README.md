@@ -13,6 +13,7 @@ This plugin requires Moodle 2.9+
 Changes
 -------
 
+* 2015-11-02 - Supress the list item bullet point which appeared in some themes within the tab
 * 2015-08-31 - Remove experimental status for Bootstrap tabs and make them default. Settings of existing installations won't be changed.
 * 2015-08-31 - Check compatibility for Moodle 2.9, no functionality change
 * 2015-01-23 - Check compatibility for Moodle 2.8, no functionality change
