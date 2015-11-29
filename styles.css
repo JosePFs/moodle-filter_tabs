@@ -34,11 +34,16 @@
 .yui3-skin-sam .yui3-tabview-content .yui3-tab:first-child .yui3-tab-label {
     border-radius: 5px 0px 0px 0px;
 }
+.dir-rtl.yui3-skin-sam .yui3-tabview-content .yui3-tab:first-child .yui3-tab-label {
+    border-radius: 0px 5px 0px 0px;
+}
 
 .yui3-skin-sam .yui3-tabview-content .yui3-tab:last-child .yui3-tab-label {
     border-radius: 0px 5px 0px 0px;
 }
-
+.dir-rtl.yui3-skin-sam .yui3-tabview-content .yui3-tab:last-child .yui3-tab-label {
+    border-radius: 5px 0px 0px 0px;
+}
 
 /* Tab title positioning */
 .yui3-skin-sam .yui3-tabview-content .yui3-tab .yui3-tab-label,
@@ -82,11 +87,23 @@
     margin-right: 10px;
     padding-right: 10px;
 }
+.dir-rtl .filter-tabs-tabgroup.yui3-tabview-loading .filter-tabs-title {
+    float: right;
+    margin-left: 10px;
+    padding-left: 10px;
+    margin-right: 0;
+    padding-right: 0;
+}
 
 .filter-tabs-tabgroup.yui3-tabview-loading .filter-tabs-title:last-child {
     border-right: none;
     margin-right: 0;
     padding-right: 0;
+}
+.dir-rtl .filter-tabs-tabgroup.yui3-tabview-loading .filter-tabs-title:last-child {
+    border-left: none;
+    margin-left: 0;
+    padding-left: 0;
 }
 
 .filter-tabs-tabgroup.yui3-tabview-loading .filter-tabs-textgroup {
