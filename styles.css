@@ -88,10 +88,12 @@
     padding-right: 10px;
 }
 .dir-rtl .filter-tabs-tabgroup.yui3-tabview-loading .filter-tabs-title {
+    border-left: 1px solid lightgrey;
+    border-right: 0;
     float: right;
     margin-left: 10px;
-    padding-left: 10px;
     margin-right: 0;
+    padding-left: 10px;
     padding-right: 0;
 }
 

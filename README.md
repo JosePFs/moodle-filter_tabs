@@ -13,6 +13,7 @@ This plugin requires Moodle 2.9+
 Changes
 -------
 
+* 2015-11-29 - Add support for right-to-left (RTL) languages - Credtits to nadavkav
 * 2015-11-02 - Supress the list item bullet point which appeared in some themes within the tab
 * 2015-08-31 - Remove experimental status for Bootstrap tabs and make them default. Settings of existing installations won't be changed.
 * 2015-08-31 - Check compatibility for Moodle 2.9, no functionality change
@@ -106,8 +107,8 @@ There may be several weeks after a new major release of Moodle has been publishe
 Right-to-left support
 ---------------------
 
-This plugin has not been tested with Moodle's support for right-to-left (RTL) languages.
-If you want to use this plugin with a RTL language and it doesn't work as-is, you are free to send me a pull request on
+This plugin leverages Moodle's support for right-to-left (RTL) languages. This support was added as a contribution by nadavkav.
+However, we don't regularly test it with a RTL language. If you have problems with the plugin and a RTL language, you are free to send me a pull request on
 github with modifications.
 
 
