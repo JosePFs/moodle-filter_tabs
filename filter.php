@@ -33,32 +33,6 @@ class filter_tabs extends moodle_text_filter {
 
 
     /*
-     * Add the javascript library to enable Bootstrap tabs on this page.
-     *
-     * @param moodle_page $page The current page.
-     * @param context $context The current context.
-     */
-    public function setup($page, $context) {
-        // Get config
-        $filter_tabs_config = get_config('filter_tabs');
-
-        // Do only if Bootstrap tabs are enabled
-        if ($filter_tabs_config->enablebootstrap == true) {
-
-            // This only requires execution once per request.
-            static $jsinitialised = false;
-
-            if (empty($jsinitialised)) {
-                $page->requires->jquery();
-                $page->requires->js('/filter/tabs/js/bootstrap-2.3.2-tab.min.js');
-
-                $jsinitialised = true;
-            }
-        }
-    }
-
-
-    /*
      * This function replaces the tab syntax with YUI / Bootstrap HTML code.
      *
      * @param string $text The text to filter.
