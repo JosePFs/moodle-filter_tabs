@@ -7,12 +7,13 @@ Moodle filter which creates tabs in textfields
 Requirements
 ------------
 
-This plugin requires Moodle 2.9+
+This plugin requires Moodle 3.0+
 
 
 Changes
 -------
 
+* 2016-01-01 - Check compatibility for Moodle 3.0, no functionality change
 * 2015-11-29 - Add support for right-to-left (RTL) languages - Credtits to nadavkav
 * 2015-11-02 - Supress the list item bullet point which appeared in some themes within the tab
 * 2015-08-31 - Remove experimental status for Bootstrap tabs and make them default. Settings of existing installations won't be changed.
