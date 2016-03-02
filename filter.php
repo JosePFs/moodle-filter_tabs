@@ -17,10 +17,9 @@
 /**
  * Filter "tabs"
  *
- * @package     filter
- * @subpackage  filter_tabs
- * @copyright   2013 Stefan Lehneis, University of Regensburg <stefan.lehneis@rz.uni-regensburg.de> / 2014 Alexander Bias, University of Ulm <alexander.bias@uni-ulm.de>
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    filter_tabs
+ * @copyright  2013 Stefan Lehneis, University of Regensburg <stefan.lehneis@rz.uni-regensburg.de> / 2014 Alexander Bias, University of Ulm <alexander.bias@uni-ulm.de>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
