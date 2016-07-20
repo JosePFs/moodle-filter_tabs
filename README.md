@@ -7,12 +7,13 @@ Moodle filter which creates tabs in textfields
 Requirements
 ------------
 
-This plugin requires Moodle 3.0+
+This plugin requires Moodle 3.1+
 
 
 Changes
 -------
 
+* 2016-07-19 - Check compatibility for Moodle 3.1, no functionality change
 * 2016-02-10 - Change plugin version and release scheme to the scheme promoted by moodle.org, no functionality change
 * 2016-02-03 - Remove Bootstrap tabs library which was shipped with this plugin as it should be contained in Moodle themes.
 * 2016-01-01 - Remove loading of jQuery and the Bootstrap tabs library because of problems in recent Moodle versions. The filter should still work in all Bootstrap based Moodle themes. If you encounter problems in your theme, please report the problem on https://github.com/moodleuulm/moodle-filter_tabs/issues and / or use the 2.9 version of the plugin
