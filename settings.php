@@ -26,8 +26,7 @@ defined('MOODLE_INTERNAL') || die();
 
 if ($ADMIN->fulltree) {
     // Appearance
-    $settings->add(new admin_setting_heading('filter_tabs/bootstrapheading', get_string('bootstrapheading', 'filter_tabs'), ''));
+    $settings->add(new admin_setting_heading('filter_tabs/bootstrapheading', get_string('bootstrapheading', 'filter_tabs', null, true), ''));
 
-    $settings->add(new admin_setting_configcheckbox('filter_tabs/enablebootstrap', get_string('enablebootstrap', 'filter_tabs'),
-                        get_string('enablebootstrap_desc', 'filter_tabs'), 1));
+    $settings->add(new admin_setting_configcheckbox('filter_tabs/enablebootstrap', get_string('enablebootstrap', 'filter_tabs', null, true), get_string('enablebootstrap_desc', 'filter_tabs', null, true), 1));
 }
