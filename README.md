@@ -123,7 +123,7 @@ Copyright
 University of Regensburg
 Stefan Lehneis
 
-University of Ulm
+Ulm University
 kiz - Media Department
 Team Web & Teaching Support
 Alexander Bias
