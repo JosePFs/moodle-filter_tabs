@@ -22,10 +22,12 @@ See http://docs.moodle.org/en/Installing_plugins for details on installing Moodl
 Usage
 -----
 
-First, activate the filter_tabs plugin in Site Administration -> Plugins -> Filters -> Manage filters
+First, activate the filter_tabs plugin in Site administration -> Plugins -> Filters -> Manage filters
 
 To create tabs in textfields, use the following syntax:
+```
 {%:Tab title}Tab text{%}
+```
 
 
 Example
@@ -33,17 +35,21 @@ Example
 
 The following placeholders in a textfield:
 
+```
 {%:First tab}Some text{%}
 {%:Second tab}Another text{%}
+```
 
 will produce this tab group:
 
+```
 +-----------+------------+
 | First tab | Second tab |
 +------------------------+-------------------------+
 | Some text                                        |
 |                                                  |
 +--------------------------------------------------+
+```
 
 
 Settings
@@ -86,8 +92,7 @@ Right-to-left support
 ---------------------
 
 This plugin leverages Moodle's support for right-to-left (RTL) languages. This support was added as a contribution by nadavkav.
-However, we don't regularly test it with a RTL language. If you have problems with the plugin and a RTL language, you are free to send me a pull request on
-github with modifications.
+However, we don't regularly test it with a RTL language. If you have problems with the plugin and a RTL language, you are free to send us a pull request on github with modifications.
 
 
 Copyright
