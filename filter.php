@@ -65,10 +65,10 @@ class filter_tabs extends moodle_text_filter {
                 foreach ($matches[1] as $key => $tabtitle) {
                     // The first tab is active
                     if ($key == 0) {
-                        $newtext .= '<li class="active"><a href="#filter-tabs-content-'.$id.'-'.($key+1).'" data-toggle="tab">'.$tabtitle.'</a></li>';
+                        $newtext .= '<li class="nav-item"><a class="nav-link active" href="#filter-tabs-content-'.$id.'-'.($key+1).'" data-toggle="tab">'.$tabtitle.'</a></li>';
                     }
                     else {
-                        $newtext .= '<li><a href="#filter-tabs-content-'.$id.'-'.($key+1).'" data-toggle="tab">'.$tabtitle.'</a></li>';
+                        $newtext .= '<li class="nav-item"><a class="nav-link" href="#filter-tabs-content-'.$id.'-'.($key+1).'" data-toggle="tab">'.$tabtitle.'</a></li>';
                     }
                 }
                 $newtext .= '</ul>';
@@ -78,10 +78,10 @@ class filter_tabs extends moodle_text_filter {
                 foreach ($matches[2] as $key => $tabtext) {
                     // The first tab is active
                     if ($key == 0) {
-                        $newtext .= '<div id="filter-tabs-content-'.$id.'-'.($key+1).'" class="tab-pane active"><p>'.$tabtext.'</p></div>';
+                        $newtext .= '<div role="tabpanel" id="filter-tabs-content-'.$id.'-'.($key+1).'" class="tab-pane active"><p>'.$tabtext.'</p></div>';
                     }
                     else {
-                        $newtext .= '<div id="filter-tabs-content-'.$id.'-'.($key+1).'" class="tab-pane"><p>'.$tabtext.'</p></div>';
+                        $newtext .= '<div role="tabpanel" id="filter-tabs-content-'.$id.'-'.($key+1).'" class="tab-pane"><p>'.$tabtext.'</p></div>';
                     }
                 }
 
