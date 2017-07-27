@@ -136,3 +136,7 @@
 .filter-tabs-bootstrap .nav-tabs>li {
     list-style: none;
 }
+
+.filter-tabs-bootstrap.boots-tabs .nav-tabs {
+    margin-bottom: 20px;
+}

@@ -18,7 +18,9 @@
  * Filter "tabs"
  *
  * @package    filter_tabs
- * @copyright  2013 Stefan Lehneis, University of Regensburg <stefan.lehneis@rz.uni-regensburg.de> / 2014 Alexander Bias, Ulm University <alexander.bias@uni-ulm.de>
+ * @copyright  2013 Stefan Lehneis, University of Regensburg <stefan.lehneis@rz.uni-regensburg.de> /
+ *             2014 Alexander Bias, Ulm University <alexander.bias@uni-ulm.de> /
+ *             2017 José Puente <jpuentefs@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -26,10 +28,14 @@ defined('MOODLE_INTERNAL') || die();
 
 class filter_tabs extends moodle_text_filter {
 
-    // Static counter for tabgroups
-    // This was implemented with a random number previously, but was changed to a static counter for performance reasons
-    public static $filter_tabs_tabgroup_counter = 1;
+    // Supported tabs.
+    const YUI_TABS = '0';
+    const BOOTSTRAP_2_TABS = '1';
+    const BOOTSTRAP_4_TABS = '2';
 
+    // Static counter for tabgroups
+    // This was implemented with a random number previously, but was changed to a static counter for performance reasons.
+    private static $filtertabstabgroupcounter = 1;
 
     /*
      * This function replaces the tab syntax with YUI / Bootstrap HTML code.
@@ -37,101 +43,175 @@ class filter_tabs extends moodle_text_filter {
      * @param string $text The text to filter.
      * @param array $options The filter options.
      */
-    function filter ($text, array $options = array() ) {
-        // Get config
-        $filter_tabs_config = get_config('filter_tabs');
+    public function filter ($text, array $options = array() ) {
+        if (!is_string($text) || empty($text) || strpos($text, '{%') === false ||
+           (!$successmatch = preg_match_all("/\{%:([^}]*)\}(.*?)\{%\}/s", $text, $matches))) {
+            return $text;
+        }
+        // Get config.
+        $filtertabsconfig = get_config('filter_tabs');
 
-        // Search filter placeholder
-        preg_match_all("/\{%:([^}]*)\}(.*?)\{%\}/s", $text, $matches);
-
-        // Prepare newtext variable
+        // Prepare newtext variable.
         $newtext = '';
 
-        // Do if placeholder is found
-        if (count($matches[1]) > 0) {
-
-            // Get ID for tab group
-            $id = self::$filter_tabs_tabgroup_counter;
-
-            // Provide bootstrap tabs
-            if ($filter_tabs_config->enablebootstrap == true) {
-                // Start tab group
-                $newtext = '<div id="filter-tabs-tabgroup-'.$id.'" class="filter-tabs-bootstrap">';
-
-                // Create tab titles
-                $newtext .= '<ul id="filter-tabs-titlegroup-'.$id.'" class="nav nav-tabs">';
-
-                // Create tab titles
-                foreach ($matches[1] as $key => $tabtitle) {
-                    // The first tab is active
-                    if ($key == 0) {
-                        $newtext .= '<li class="active"><a href="#filter-tabs-content-'.$id.'-'.($key+1).'" data-toggle="tab">'.$tabtitle.'</a></li>';
-                    }
-                    else {
-                        $newtext .= '<li><a href="#filter-tabs-content-'.$id.'-'.($key+1).'" data-toggle="tab">'.$tabtitle.'</a></li>';
-                    }
-                }
-                $newtext .= '</ul>';
-
-                // Create tab content
-                $newtext .= '<div id="filter-tabs-content-'.$id.'" class="tab-content">';
-                foreach ($matches[2] as $key => $tabtext) {
-                    // The first tab is active
-                    if ($key == 0) {
-                        $newtext .= '<div id="filter-tabs-content-'.$id.'-'.($key+1).'" class="tab-pane active"><p>'.$tabtext.'</p></div>';
-                    }
-                    else {
-                        $newtext .= '<div id="filter-tabs-content-'.$id.'-'.($key+1).'" class="tab-pane"><p>'.$tabtext.'</p></div>';
-                    }
-                }
-
-                // End tab group
-                $newtext .= '</div>';
-
-                // Increase tabgroup counter
-                self::$filter_tabs_tabgroup_counter++;
-            }
-
-            // Or provide legacy YUI tabs
-            else {
-                // Start tab group
-                $newtext = '<div id="filter-tabs-tabgroup-'.$id.'" class="filter-tabs-tabgroup yui3-tabview-loading">';
-
-                // Create tab titles
-                $newtext .= '<ul class="filter-tabs-titlegroup">';
-                foreach ($matches[1] as $key => $tabtitle) {
-                    $newtext.= '<li class="filter-tabs-title"><a href="#filter-tabs-text-'.$id.'-'.($key+1).'">'.$tabtitle.'</a></li>';
-                }
-                $newtext .= '</ul>';
-
-                // Create tab texts
-                $newtext .= '<div class="filter-tabs-textgroup">';
-                foreach ($matches[2] as $key => $tabtext) {
-                    $newtext.= '<div id="filter-tabs-text-'.$id.'-'.($key+1).'" class="filter-tabs-text"><p>'.$tabtext.'</p></div>';
-                }
-                $newtext .= '</div>';
-
-                // End tab group
-                $newtext .= '</div>';
-
-                // Add YUI enhancement
-                $newtext .= '<script type="text/javascript">
-                                YUI().use(\'tabview\', function(Y) {
-                                var tabview = new Y.TabView({srcNode:\'#filter-tabs-tabgroup-'.$id.'\'});
-                                tabview.render();
-                                });
-                        </script>';
-
-                // Increase tabgroup counter
-                self::$filter_tabs_tabgroup_counter++;
-            }
-
-            // Apply filter
-            $text_before = substr($text, 0, strpos($text, "{%:"));
-            $text_after = substr($text, strpos($text, "{%:"));
-            $text = preg_replace("/\{%:([^}]*)\}(.*?)\{%\}/s", "", $text_before).$newtext.preg_replace("/\{%:([^}]*)\}(.*?)\{%\}/s", "", $text_after);
+        // Generate tabs.
+        if ($filtertabsconfig->enablebootstrap === self::BOOTSTRAP_4_TABS) {
+            $newtext = $this->generate_bootstrap4_tabs($matches);
+        } else if ($filtertabsconfig->enablebootstrap === self::BOOTSTRAP_2_TABS) {
+            $newtext = $this->generate_bootstrap2_tabs($matches);
+        } else { // Or provide legacy YUI tabs.
+            $newtext = $this->generate_yui_tabs($matches);
         }
 
+        // Increase tabgroup counter.
+        self::$filtertabstabgroupcounter++;
+
+        // Apply filter.
+        $textbefore = substr($text, 0, strpos($text, "{%:"));
+        $textafter = substr($text, strpos($text, "{%:"));
+        $text = preg_replace("/\{%:([^}]*)\}(.*?)\{%\}/s", "", $textbefore)
+                . $newtext .
+                preg_replace("/\{%:([^}]*)\}(.*?)\{%\}/s", "", $textafter);
+
         return $text;
+    }
+
+    /**
+     * Generate bootstrap 4 tabs.
+     *
+     * @param array $matches
+     * @return string
+     */
+    private function generate_bootstrap4_tabs(array $matches) {
+        // Get ID for tab group.
+        $id = self::$filtertabstabgroupcounter;
+
+        // Start tab group.
+        $newtext = '<div id="filter-tabs-tabgroup-'.$id.'" class="filter-tabs-bootstrap boots-tabs">';
+
+        // Create tab titles.
+        $newtext .= '<ul id="filter-tabs-titlegroup-'.$id.'" class="nav nav-tabs" role="tablist">';
+
+        // Create tab titles.
+        foreach ($matches[1] as $key => $tabtitle) {
+            $active = '';
+            // The first tab is active.
+            if ($key === 0) {
+                $active = 'active';
+            }
+            $newtext .= '<li class="nav-item">'
+                    . '<a class="nav-link ' . $active . '" href="#filter-tabs-content-'.$id.'-'.($key + 1).
+                    '" data-toggle="tab" role="tab">' . $tabtitle . '</a>'
+                    . '</li>';
+        }
+        $newtext .= '</ul>';
+
+        // Create tab content.
+        $newtext .= '<div id="filter-tabs-content-'.$id.'" class="tab-content">';
+        foreach ($matches[2] as $key => $tabtext) {
+            $active = '';
+            // The first tab is active.
+            if ($key === 0) {
+                $active = 'in active';
+            }
+            $newtext .= '<div id="filter-tabs-content-'.$id.'-'.($key + 1).'" class="tab-pane fade '
+                    . $active .  '" role="tabpanel">'
+                    . '<p>'.$tabtext.'</p>'
+                    . '</div>';
+        }
+
+        // End tab group.
+        $newtext .= '</div>';
+
+        return $newtext;
+    }
+
+    /**
+     * Generates Bootstrap 2 tabs.
+     *
+     * @param array $matches
+     * @return string
+     */
+    private function generate_bootstrap2_tabs(array $matches) {
+        // Get ID for tab group.
+        $id = self::$filtertabstabgroupcounter;
+
+        // Start tab group.
+        $newtext = '<div id="filter-tabs-tabgroup-'.$id.'" class="filter-tabs-bootstrap">';
+
+        // Create tab titles.
+        $newtext .= '<ul id="filter-tabs-titlegroup-'.$id.'" class="nav nav-tabs">';
+
+        // Create tab titles.
+        foreach ($matches[1] as $key => $tabtitle) {
+            $active = '';
+            // The first tab is active.
+            if ($key === 0) {
+                $active = 'active';
+            }
+            $newtext .= '<li class="' . $active . '">'
+                        . '<a href="#filter-tabs-content-'.$id.'-'.($key + 1).'" data-toggle="tab">'.$tabtitle.'</a>'
+                        . '</li>';
+        }
+        $newtext .= '</ul>';
+
+        // Create tab content.
+        $newtext .= '<div id="filter-tabs-content-'.$id.'" class="tab-content">';
+        foreach ($matches[2] as $key => $tabtext) {
+            $active = '';
+            // The first tab is active.
+            if ($key === 0) {
+                $active = 'active';
+            }
+            $newtext .= '<div id="filter-tabs-content-'.$id.'-'.($key + 1).'" class="tab-pane ' . $active . '">'
+                        . '<p>'.$tabtext.'</p>'
+                        . '</div>';
+        }
+
+        // End tab group.
+        $newtext .= '</div>';
+
+        return $newtext;
+    }
+
+    /**
+     * Generate legacy YUI tabs.
+     *
+     * @param array $matches
+     * @return string
+     */
+    private function generate_yui_tabs(array $matches) {
+        // Get ID for tab group.
+        $id = self::$filtertabstabgroupcounter;
+
+        // Start tab group.
+        $newtext = '<div id="filter-tabs-tabgroup-'.$id.'" class="filter-tabs-tabgroup yui3-tabview-loading">';
+
+        // Create tab titles.
+        $newtext .= '<ul class="filter-tabs-titlegroup">';
+        foreach ($matches[1] as $key => $tabtitle) {
+            $newtext .= '<li class="filter-tabs-title"><a href="#filter-tabs-text-'.$id.'-'.($key + 1).'">'.$tabtitle.'</a></li>';
+        }
+        $newtext .= '</ul>';
+
+        // Create tab texts.
+        $newtext .= '<div class="filter-tabs-textgroup">';
+        foreach ($matches[2] as $key => $tabtext) {
+            $newtext .= '<div id="filter-tabs-text-'.$id.'-'.($key + 1).'" class="filter-tabs-text"><p>'.$tabtext.'</p></div>';
+        }
+        $newtext .= '</div>';
+
+        // End tab group.
+        $newtext .= '</div>';
+
+        // Add YUI enhancement.
+        $newtext .= '<script type="text/javascript">
+                        YUI().use(\'tabview\', function(Y) {
+                        var tabview = new Y.TabView({srcNode:\'#filter-tabs-tabgroup-'.$id.'\'});
+                        tabview.render();
+                        });
+                </script>';
+
+        return $newtext;
     }
 }

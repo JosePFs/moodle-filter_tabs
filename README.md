@@ -77,7 +77,7 @@ Further information
 
 filter_tabs is found in the Moodle Plugins repository: https://moodle.org/plugins/view/filter_tabs
 
-Report a bug or suggest an improvement: https://github.com/moodleuulm/moodle-filter_tabs/issues
+Report a bug or suggest an improvement: https://github.com/JosePFs/moodle-filter_tabs/issues
 
 
 Moodle release support
@@ -85,7 +85,7 @@ Moodle release support
 
 Due to limited resources, filter_tabs is only maintained for the most recent major release of Moodle. However, previous versions of this plugin which work in legacy major releases of Moodle are still available as-is without any further updates in the Moodle Plugins repository.
 
-There may be several weeks after a new major release of Moodle has been published until we can do a compatibility check and fix problems if necessary. If you encounter problems with a new major release of Moodle - or can confirm that filter_tabs still works with a new major relase - please let us know on https://github.com/moodleuulm/moodle-filter_tabs/issues
+There may be several weeks after a new major release of Moodle has been published until we can do a compatibility check and fix problems if necessary. If you encounter problems with a new major release of Moodle - or can confirm that filter_tabs still works with a new major relase - please let us know on https://github.com/JosePFs/moodle-filter_tabs/issues
 
 
 Right-to-left support
@@ -106,6 +106,12 @@ If you encounter any success or failure with this plugin and PHP7, please let us
 Copyright
 ---------
 
+2017 onwards José Puente Fuentes
+
+
+Original author
+---------
+
 University of Regensburg
 Stefan Lehneis
 
@@ -113,3 +119,9 @@ Ulm University
 kiz - Media Department
 Team Web & Teaching Support
 Alexander Bias
+
+
+Change of maintainer
+---------------------
+
+On 02/08/2017, this plugin was transferred to José Puente Fuentes who is now the main maintainer.

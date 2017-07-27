@@ -4,6 +4,10 @@ moodle-filter_tabs
 Changes
 -------
 
+### v3.2-r1
+
+* 2017-07-27 - Added compatibility for Moodle 3.2
+
 ### Unreleased
 
 * 2017-01-12 - Move Changelog from README.md to CHANGES.md
