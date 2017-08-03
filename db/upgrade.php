@@ -48,7 +48,7 @@ function xmldb_filter_tabs_upgrade($oldversion) {
             }
         }
 
-        upgrade_plugin_savepoint(true, 2017040300, 'filter', 'tabs');
+        upgrade_plugin_savepoint(true, 2017072700, 'filter', 'tabs');
     }
 
     return true;
