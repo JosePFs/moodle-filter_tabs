@@ -110,7 +110,7 @@ Copyright
 
 
 Original author
----------
+---------------
 
 University of Regensburg
 Stefan Lehneis
@@ -125,3 +125,9 @@ Change of maintainer
 ---------------------
 
 On 02/08/2017, this plugin was transferred to José Puente Fuentes who is now the main maintainer.
+
+
+Credits
+-------
+
+Logo by <a href="http://www.flaticon.com/">Flaticon</a>.
