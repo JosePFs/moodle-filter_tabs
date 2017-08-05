@@ -30,6 +30,8 @@ defined('MOODLE_INTERNAL') || die();
 define('BOOTSTRAP_4_VERSION', '4');
 
 /**
+ * Tasks to do when plugin version is upgraded
+ *
  * @param int $oldversion the version we are upgrading from
  * @return bool result
  */

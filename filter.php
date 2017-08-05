@@ -26,18 +26,40 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+/**
+ * Filter converting token text into tabs
+ *
+ * @package    filter_tabs
+ * @copyright  2013 Stefan Lehneis, University of Regensburg <stefan.lehneis@rz.uni-regensburg.de> /
+ *             2014 Alexander Bias, Ulm University <alexander.bias@uni-ulm.de> /
+ *             2017 José Puente <jpuentefs@gmail.com>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class filter_tabs extends moodle_text_filter {
 
-    // Supported tabs.
+    /**
+     * Legacy YUI tabs,
+     */
     const YUI_TABS = '0';
+
+    /**
+     * Bootstrap version 2 tabs.
+     */
     const BOOTSTRAP_2_TABS = '1';
+
+    /**
+     * Bootstrap version 4 tabs.
+     */
     const BOOTSTRAP_4_TABS = '2';
 
-    // Static counter for tabgroups
-    // This was implemented with a random number previously, but was changed to a static counter for performance reasons.
+    /**
+     * This was implemented with a random number previously, but was changed to a static counter for performance reasons.
+     *
+     * @var integer Counter for tabgroups
+     */
     private static $filtertabstabgroupcounter = 1;
 
-    /*
+    /**
      * This function replaces the tab syntax with YUI / Bootstrap HTML code.
      *
      * @param string $text The text to filter.

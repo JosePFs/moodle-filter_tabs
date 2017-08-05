@@ -14,6 +14,16 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Language file
+ *
+ * @package    filter_tabs
+ * @copyright  2013 Stefan Lehneis, University of Regensburg <stefan.lehneis@rz.uni-regensburg.de> /
+ *             2014 Alexander Bias, Ulm University <alexander.bias@uni-ulm.de> /
+ *             2017 José Puente <jpuentefs@gmail.com>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 defined('MOODLE_INTERNAL') || die();
 
 $string['filtername'] = 'Tabs';

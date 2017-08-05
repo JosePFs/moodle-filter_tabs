@@ -28,7 +28,7 @@ defined('MOODLE_INTERNAL') || die();
  * Checks current theme in use.
  *
  * @package    filter_tabs
- * @copyright  2017 José Puente
+ * @copyright  2017 José Puente <jpuentefs@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class filter_tabs_helper {
@@ -41,8 +41,6 @@ class filter_tabs_helper {
     /**
      * Get Bootstrap version of the current theme and its parents.
      *
-     * @global stdClass $PAGE
-     * @global stdClass $CFG
      * @return boolean|string Version or false if not found.
      */
     public static function get_bootstrap_version() {
