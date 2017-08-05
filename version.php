@@ -18,14 +18,15 @@
  * Filter "tabs" - Version file
  *
  * @package    filter_tabs
- * @copyright  2014 Alexander Bias, Ulm University <alexander.bias@uni-ulm.de>
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @copyright  2014 Alexander Bias, Ulm University <alexander.bias@uni-ulm.de> /
+ *             2017 José Puente <jpuentefs@gmail.com>
+ 0 @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'filter_tabs';
-$plugin->version = 2017072700;
-$plugin->release = 'v3.2-r1';
+$plugin->version = 2017072702;
+$plugin->release = 'v3.2-r2';
 $plugin->requires = 2016052300;
 $plugin->maturity = MATURITY_STABLE;

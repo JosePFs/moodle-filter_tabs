@@ -62,10 +62,20 @@ if ($ADMIN->fulltree) {
                                 ": [ \"{$tabstypesoptions[filter_tabs::BOOTSTRAP_4_TABS]}\" ]</small>";
         }
 
+        // Bootstrap suggestion.
         $settings->add(new admin_setting_heading(
                 'filter_tabs_bootstrap_version_header',
                 get_string('selecttabs_hint', 'filter_tabs'),
                 $bootsrapversion . $suggestedoption)
+            );
+
+        // Preview.
+        $filtertabs = new filter_tabs(context_system::instance(), array());
+        $tabsfilteredtext = $filtertabs->filter('{%:First tab}Some text{%}{%:Second tab}Another text{%}');
+        $settings->add(new admin_setting_heading(
+                'filter_tabs_preview_header',
+                get_string('previewheading', 'filter_tabs'),
+                trim(preg_replace('/\s\s+/', ' ', $tabsfilteredtext)))
             );
     }
 }
