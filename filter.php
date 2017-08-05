@@ -108,13 +108,13 @@ class filter_tabs extends moodle_text_filter {
         // Get ID for tab group.
         $id = self::$filtertabstabgroupcounter;
 
-        // Start tab group.
+        // Start tabs group.
         $newtext = '<div id="filter-tabs-tabgroup-'.$id.'" class="filter-tabs-bootstrap boots-tabs">';
 
-        // Create tab titles.
+        // Create tabs titles.
         $newtext .= '<ul id="filter-tabs-titlegroup-'.$id.'" class="nav nav-tabs" role="tablist">';
 
-        // Create tab titles.
+        // Create tabs titles.
         foreach ($matches[1] as $key => $tabtitle) {
             $active = '';
             // The first tab is active.
@@ -128,7 +128,7 @@ class filter_tabs extends moodle_text_filter {
         }
         $newtext .= '</ul>';
 
-        // Create tab content.
+        // Create tabs content.
         $newtext .= '<div id="filter-tabs-content-'.$id.'" class="tab-content">';
         foreach ($matches[2] as $key => $tabtext) {
             $active = '';
@@ -142,7 +142,10 @@ class filter_tabs extends moodle_text_filter {
                     . '</div>';
         }
 
-        // End tab group.
+        // End tabs content.
+        $newtext .= '</div>';
+
+        // End tabs group.
         $newtext .= '</div>';
 
         return $newtext;
@@ -158,13 +161,13 @@ class filter_tabs extends moodle_text_filter {
         // Get ID for tab group.
         $id = self::$filtertabstabgroupcounter;
 
-        // Start tab group.
+        // Start tabs group.
         $newtext = '<div id="filter-tabs-tabgroup-'.$id.'" class="filter-tabs-bootstrap">';
 
-        // Create tab titles.
+        // Create tabs titles.
         $newtext .= '<ul id="filter-tabs-titlegroup-'.$id.'" class="nav nav-tabs">';
 
-        // Create tab titles.
+        // Create tabs titles.
         foreach ($matches[1] as $key => $tabtitle) {
             $active = '';
             // The first tab is active.
@@ -177,7 +180,7 @@ class filter_tabs extends moodle_text_filter {
         }
         $newtext .= '</ul>';
 
-        // Create tab content.
+        // Create tabs content.
         $newtext .= '<div id="filter-tabs-content-'.$id.'" class="tab-content">';
         foreach ($matches[2] as $key => $tabtext) {
             $active = '';
@@ -190,7 +193,10 @@ class filter_tabs extends moodle_text_filter {
                         . '</div>';
         }
 
-        // End tab group.
+        // End tabs content.
+        $newtext .= '</div>';
+
+        // End tabs group.
         $newtext .= '</div>';
 
         return $newtext;

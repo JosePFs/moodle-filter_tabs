@@ -36,3 +36,4 @@ $string['enablebootstrap2'] = 'Enable Bootstrap 2 tabs for use with Bootstrap 2 
 $string['enablebootstrap4'] = 'Enable Bootstrap 4 tabs for use with Bootstrap 4 based themes';
 $string['selecttabs_hint'] = 'Bootstrap version used by the current theme';
 $string['suggestedoption'] = 'Suggested option';
+$string['previewheading'] = 'Preview';
