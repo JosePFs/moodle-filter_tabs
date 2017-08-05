@@ -32,19 +32,19 @@
 
 /* Tab title rounded corners */
 .yui3-skin-sam .yui3-tabview-content .yui3-tab:first-child .yui3-tab-label {
-    border-radius: 5px 0px 0px 0px;
+    border-radius: 5px 0 0 0;
 }
 
 .dir-rtl.yui3-skin-sam .yui3-tabview-content .yui3-tab:first-child .yui3-tab-label {
-    border-radius: 0 5px 0px 0px;
+    border-radius: 0 5px 0 0;
 }
 
 .yui3-skin-sam .yui3-tabview-content .yui3-tab:last-child .yui3-tab-label {
-    border-radius: 0 5px 0px 0px;
+    border-radius: 0 5px 0 0;
 }
 
 .dir-rtl.yui3-skin-sam .yui3-tabview-content .yui3-tab:last-child .yui3-tab-label {
-    border-radius: 5px 0px 0px 0px;
+    border-radius: 5px 0 0 0;
 }
 
 /* Tab title positioning */
@@ -122,7 +122,7 @@
 
 .filter-tabs-tabgroup.yui3-tabview-loading .filter-tabs-text {
     border-bottom: 1px dashed lightgrey;
-    padding: 5px 0px;
+    padding: 5px 0;
 }
 
 
