@@ -76,10 +76,13 @@ class filter_tabs extends moodle_text_filter {
         // Prepare newtext variable.
         $newtext = '';
 
+        $isbootstrapenabled = isset($filtertabsconfig->enablebootstrap) &&
+                              $filtertabsconfig->enablebootstrap !== self::YUI_TABS;
+
         // Generate tabs.
-        if ($filtertabsconfig->enablebootstrap === self::BOOTSTRAP_4_TABS) {
+        if ($isbootstrapenabled && $filtertabsconfig->enablebootstrap === self::BOOTSTRAP_4_TABS) {
             $newtext = $this->generate_bootstrap4_tabs($matches);
-        } else if ($filtertabsconfig->enablebootstrap === self::BOOTSTRAP_2_TABS) {
+        } else if ($isbootstrapenabled) {
             $newtext = $this->generate_bootstrap2_tabs($matches);
         } else { // Or provide legacy YUI tabs.
             $newtext = $this->generate_yui_tabs($matches);

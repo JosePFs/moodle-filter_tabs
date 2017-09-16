@@ -4,6 +4,14 @@ moodle-filter_tabs
 Changes
 -------
 
+### v3.2-r4
+
+* 2017-09-16 - Fix php unit notice
+
+### v3.2-r3
+
+* 2017-09-16 - Fix code checker errors
+
 ### v3.2-r2
 
 * 2017-08-05 - Added tabs preview in settings page

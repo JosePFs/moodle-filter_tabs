@@ -1,0 +1,6 @@
+{
+    "name": "moodle-filter_tabs",
+    "devDependencies": {
+        "grunt": "^1.0.1"
+    }
+}
