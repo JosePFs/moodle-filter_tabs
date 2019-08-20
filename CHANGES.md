@@ -4,6 +4,10 @@ moodle-filter_tabs
 Changes
 -------
 
+### v3.3-r5
+
+* 2019-08-20 - Fix security issues
+
 ### v3.2-r4
 
 * 2017-09-16 - Fix php unit notice
