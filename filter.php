@@ -165,6 +165,8 @@ class filter_tabs extends moodle_text_filter {
      * @return string
      */
     private function generate_bootstrap2_tabs(array $matches) {
+        $this->add_js();
+
         // Get ID for tab group.
         $id = self::$filtertabstabgroupcounter;
 
@@ -210,7 +212,18 @@ class filter_tabs extends moodle_text_filter {
     }
 
     /**
-     * Generate legacy YUI tabs.
+     * Adds tabs js.
+     *
+     * @global moodle_page $PAGE
+     */
+    private function add_js() {
+        global $PAGE;
+
+        $PAGE->requires->js_call_amd('filter_tabs/tabs', 'init');
+    }
+
+    /**
+     * Generates legacy YUI tabs.
      *
      * @param array $matches
      * @return string

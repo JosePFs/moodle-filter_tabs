@@ -4,6 +4,14 @@ moodle-filter_tabs
 Changes
 -------
 
+### v3.4-r1
+
+* 2019-08-22 - Added support for bookmarks
+
+### v3.3-r5
+
+* 2019-08-20 - Fix security issues
+
 ### v3.2-r4
 
 * 2017-09-16 - Fix php unit notice
