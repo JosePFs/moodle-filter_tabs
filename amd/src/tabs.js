@@ -29,6 +29,18 @@ define(['jquery'], function($) {
             var timer = setInterval(initializeTabs, 0);
 
             /**
+             * Selects tab when hash is changed manually. 
+             *
+             * @returns {undefined}
+             */
+            function hashHandler() {
+                if ($("a[href='"+location.hash+"']") && typeof $.fn.tab !== 'undefined') {
+                    $("a[href='"+location.hash+"']").tab('show');
+                }
+            }
+            window.addEventListener('hashchange', hashHandler, false);
+
+            /**
              * Preserves fragment identifier when onclick tabs to save bookmarks.
              *
              * @returns {undefined}
