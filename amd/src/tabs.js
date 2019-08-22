@@ -34,14 +34,26 @@ define(['jquery'], function($) {
              * @returns {undefined}
              */
             function hashHandler() {
-                if ($("a[href='"+location.hash+"']") && typeof $.fn.tab !== 'undefined') {
+                if (isValidHash()) {
                     $("a[href='"+location.hash+"']").tab('show');
+                    hash = location.hash;
                 }
             }
             window.addEventListener('hashchange', hashHandler, false);
 
             /**
-             * Preserves fragment identifier when onclick tabs to save bookmarks.
+             * Checks hash is selectable.  
+             *
+             * @returns {Boolean}
+             */
+            function isValidHash() {
+                return hash !== location.hash &&
+                        typeof $.fn.tab !== 'undefined' &&
+                        $("a[href='"+location.hash+"']");
+            }
+
+            /**
+             * Preserves fragment identifier when tab is clicked, allowing to save bookmarks.
              *
              * @returns {undefined}
              */
@@ -56,6 +68,7 @@ define(['jquery'], function($) {
 
                     $(val).click(function() {
                         location.hash = $(this).attr('href');
+                        hash = location.hash;
                     });
                 });
                 clearInterval(timer);
