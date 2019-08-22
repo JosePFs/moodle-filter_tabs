@@ -108,9 +108,7 @@ class filter_tabs extends moodle_text_filter {
      * @return string
      */
     private function generate_bootstrap4_tabs(array $matches) {
-        global $PAGE, $CFG;
-
-        $PAGE->requires->js( new moodle_url($CFG->wwwroot . '/filter/tabs/js/tablinks.js'));
+        $this->add_js();
 
         // Get ID for tab group.
         $id = self::$filtertabstabgroupcounter;
