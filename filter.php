@@ -102,7 +102,7 @@ class filter_tabs extends moodle_text_filter {
     }
 
     /**
-     * Generate bootstrap 4 tabs.
+     * Generates Bootstrap 4 tabs.
      *
      * @param array $titlesandcontents
      * @return string
@@ -136,7 +136,7 @@ class filter_tabs extends moodle_text_filter {
     }
 
     /**
-     * Creates bootstrap 4 div tabs group.
+     * Creates Bootstrap 4 div tabs group.
      *
      * @return string
      */
@@ -145,7 +145,7 @@ class filter_tabs extends moodle_text_filter {
     }
 
     /**
-     * Creates bootstrap 4 ul tabs container.
+     * Creates Bootstrap 4 ul tabs container.
      *
      * @param string $id
      * @return string
@@ -155,28 +155,25 @@ class filter_tabs extends moodle_text_filter {
     }
 
     /**
-     * Creates bootstrap 4 tab title.
+     * Creates Bootstrap 4 tab title.
      *
      * @param int $key
      * @param string $tabtitle
      * @param bool $printable
      * @return string
      */
-    private function create_tab_title($key, $tabtitle, $printable = false) {
-        $activeclass = $key === 0 || $printable === true ? 'active' : '';
-        if ($printable) {
-            $licontent = '<span class="nav-link active">'.$tabtitle.'</span>';
-        } else {
-            $licontent = '<a class="nav-link '.$activeclass.'" href="#filter-tabs-content-'
-                        . self::$filtertabstabgroupcounter.'-'.($key + 1)
-                        . '" data-toggle="tab" role="tab">'.$tabtitle .'</a>';
-        }
+    private function create_tab_title($key, $tabtitle) {
+        $activeclass = $key === 0 ? 'active' : '';
 
-        return '<li class="nav-item">'.$licontent.'</li>';
+        return '<li class="nav-item">'
+                . '<a class="nav-link '.$activeclass.'" href="#filter-tabs-content-'
+                . self::$filtertabstabgroupcounter.'-'.($key + 1)
+                . '" data-toggle="tab" role="tab">'.$tabtitle .'</a>'
+                . '</li>';
     }
 
     /**
-     * Creates bootstrap 4 tab content.
+     * Creates Bootstrap 4 tab content.
      *
      * @param int $key
      * @param string $tabtext
@@ -189,10 +186,20 @@ class filter_tabs extends moodle_text_filter {
         return '<div id="filter-tabs-content-'.self::$filtertabstabgroupcounter.'-'.($key + 1).'" class="tab-pane fade '
                     . $activeclass.'" role="tabpanel">'
                     . $this->create_tabs_container(self::$filtertabstabgroupcounter.'-printable')
-                    . $this->create_tab_title($key, $titles[$key], true)
+                    . $this->create_tab_title_printable($titles[$key])
                     . '</ul>'
                     . '<p>'.$tabtext.'</p>'
                     . '</div>';
+    }
+
+    /**
+     * Creates Bootstrap 4 tab title printable.
+     *
+     * @param string $tabtitle
+     * @return string
+     */
+    private function create_tab_title_printable($tabtitle) {
+        return '<li class="nav-item"><span class="nav-link active">'.$tabtitle.'</span></li>';
     }
 
     /**
