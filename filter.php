@@ -104,47 +104,26 @@ class filter_tabs extends moodle_text_filter {
     /**
      * Generate bootstrap 4 tabs.
      *
-     * @param array $matches
+     * @param array $titlesandcontents
      * @return string
      */
-    private function generate_bootstrap4_tabs(array $matches) {
+    private function generate_bootstrap4_tabs(array $titlesandcontents) {
         $this->add_js();
 
-        // Get ID for tab group.
-        $id = self::$filtertabstabgroupcounter;
-
-        // Start tabs group.
-        $newtext = '<div id="filter-tabs-tabgroup-'.$id.'" class="filter-tabs-bootstrap boots-tabs">';
+        $newtext = $this->create_tabs_group();
+        $newtext .= $this->create_tabs_container(self::$filtertabstabgroupcounter);
 
         // Create tabs titles.
-        $newtext .= '<ul id="filter-tabs-titlegroup-'.$id.'" class="nav nav-tabs" role="tablist">';
-
-        // Create tabs titles.
-        foreach ($matches[1] as $key => $tabtitle) {
-            $active = '';
-            // The first tab is active.
-            if ($key === 0) {
-                $active = 'active';
-            }
-            $newtext .= '<li class="nav-item">'
-                    . '<a class="nav-link ' . $active . '" href="#filter-tabs-content-'.$id.'-'.($key + 1).
-                    '" data-toggle="tab" role="tab">' . $tabtitle . '</a>'
-                    . '</li>';
+        foreach ($titlesandcontents[1] as $key => $tabtitle) {
+            $newtext .= $this->create_tab_title($key, $tabtitle);
         }
+        // End tabs container.
         $newtext .= '</ul>';
 
         // Create tabs content.
-        $newtext .= '<div id="filter-tabs-content-'.$id.'" class="tab-content">';
-        foreach ($matches[2] as $key => $tabtext) {
-            $active = '';
-            // The first tab is active.
-            if ($key === 0) {
-                $active = 'in active';
-            }
-            $newtext .= '<div id="filter-tabs-content-'.$id.'-'.($key + 1).'" class="tab-pane fade '
-                    . $active .  '" role="tabpanel">'
-                    . '<p>'.$tabtext.'</p>'
-                    . '</div>';
+        $newtext .= '<div id="filter-tabs-content-'.self::$filtertabstabgroupcounter.'" class="tab-content">';
+        foreach ($titlesandcontents[2] as $key => $tabtext) {
+            $newtext .= $this->create_tab_content($key, $tabtext, $titlesandcontents[1]);
         }
 
         // End tabs content.
@@ -154,6 +133,66 @@ class filter_tabs extends moodle_text_filter {
         $newtext .= '</div>';
 
         return $newtext;
+    }
+
+    /**
+     * Creates bootstrap 4 div tabs group.
+     *
+     * @return string
+     */
+    private function create_tabs_group() {
+        return '<div id="filter-tabs-tabgroup-'.self::$filtertabstabgroupcounter.'" class="filter-tabs-bootstrap boots-tabs">';
+    }
+
+    /**
+     * Creates bootstrap 4 ul tabs container.
+     *
+     * @param string $id
+     * @return string
+     */
+    private function create_tabs_container($id) {
+        return '<ul id="filter-tabs-titlegroup-'.$id.'" class="nav nav-tabs" role="tablist">';
+    }
+
+    /**
+     * Creates bootstrap 4 tab title.
+     *
+     * @param int $key
+     * @param string $tabtitle
+     * @param bool $printable
+     * @return string
+     */
+    private function create_tab_title($key, $tabtitle, $printable = false) {
+        $activeclass = $key === 0 || $printable === true ? 'active' : '';
+        if ($printable) {
+            $licontent = '<span class="nav-link active">'.$tabtitle.'</span>';
+        } else {
+            $licontent = '<a class="nav-link '.$activeclass.'" href="#filter-tabs-content-'
+                        . self::$filtertabstabgroupcounter.'-'.($key + 1)
+                        . '" data-toggle="tab" role="tab">'.$tabtitle .'</a>';
+        }
+
+        return '<li class="nav-item">'.$licontent.'</li>';
+    }
+
+    /**
+     * Creates bootstrap 4 tab content.
+     *
+     * @param int $key
+     * @param string $tabtext
+     * @param array $titles
+     * @return string
+     */
+    private function create_tab_content($key, $tabtext, $titles) {
+        $activeclass = $key === 0 ? 'in active' : '';
+
+        return '<div id="filter-tabs-content-'.self::$filtertabstabgroupcounter.'-'.($key + 1).'" class="tab-pane fade '
+                    . $activeclass.'" role="tabpanel">'
+                    . $this->create_tabs_container(self::$filtertabstabgroupcounter.'-printable')
+                    . $this->create_tab_title($key, $titles[$key], true)
+                    . '</ul>'
+                    . '<p>'.$tabtext.'</p>'
+                    . '</div>';
     }
 
     /**

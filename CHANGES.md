@@ -6,7 +6,8 @@ Changes
 
 ### v3.4-r1
 
-* 2019-08-22 - Added support for bookmarks
+* 2019-08-23 - Added support for bookmarks
+* 2019-08-23 - Added support for printing
 
 ### v3.3-r5
 

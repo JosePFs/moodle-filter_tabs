@@ -143,3 +143,28 @@
 .filter-tabs-bootstrap.boots-tabs .nav-tabs {
     margin-bottom: 20px;
 }
+
+/********************************/
+/* Printable tabs for Bootstrap */
+/********************************/
+
+.filter-tabs-bootstrap.boots-tabs .tab-content .nav-tabs {
+    margin-left: -12px;
+    display: none;
+}
+
+@media print {
+    .filter-tabs-bootstrap.boots-tabs .tab-content .nav-tabs {
+        display: flex;
+    }
+    .filter-tabs-bootstrap.boots-tabs .tab-content .nav-link {
+        border-left-color: transparent;
+    }
+    .filter-tabs-bootstrap.boots-tabs .nav-tabs {
+        display: none;
+    }
+    .filter-tabs-bootstrap.boots-tabs .tab-content .tab-pane {
+        display: block;
+        opacity: 1;
+    }
+}
