@@ -65,7 +65,7 @@ class filter_tabs extends moodle_text_filter {
      * @param string $text The text to filter.
      * @param array $options The filter options.
      */
-    public function filter ($text, array $options = array() ) {
+    public function filter($text, array $options = array() ) {
         if (!is_string($text) || empty($text) || strpos($text, '{%') === false ||
            (!$successmatch = preg_match_all("/\{%:([^}]*)\}(.*?)\{%\}/s", $text, $matches))) {
             return $text;
@@ -108,98 +108,12 @@ class filter_tabs extends moodle_text_filter {
      * @return string
      */
     private function generate_bootstrap4_tabs(array $titlesandcontents) {
+        global $CFG;
+        require_once($CFG->dirroot . '/filter/tabs/classes/bootstrap4_renderer.php');
+
         $this->add_js();
 
-        $newtext = $this->create_tabs_group();
-        $newtext .= $this->create_tabs_container(self::$filtertabstabgroupcounter);
-
-        // Create tabs titles.
-        foreach ($titlesandcontents[1] as $key => $tabtitle) {
-            $newtext .= $this->create_tab_title($key, $tabtitle);
-        }
-        // End tabs container.
-        $newtext .= '</ul>';
-
-        // Create tabs content.
-        $newtext .= '<div id="filter-tabs-content-'.self::$filtertabstabgroupcounter.'" class="tab-content">';
-        foreach ($titlesandcontents[2] as $key => $tabtext) {
-            $newtext .= $this->create_tab_content($key, $tabtext, $titlesandcontents[1]);
-        }
-
-        // End tabs content.
-        $newtext .= '</div>';
-
-        // End tabs group.
-        $newtext .= '</div>';
-
-        return $newtext;
-    }
-
-    /**
-     * Creates Bootstrap 4 div tabs group.
-     *
-     * @return string
-     */
-    private function create_tabs_group() {
-        return '<div id="filter-tabs-tabgroup-'.self::$filtertabstabgroupcounter.'" class="filter-tabs-bootstrap boots-tabs">';
-    }
-
-    /**
-     * Creates Bootstrap 4 ul tabs container.
-     *
-     * @param string $id
-     * @return string
-     */
-    private function create_tabs_container($id) {
-        return '<ul id="filter-tabs-titlegroup-'.$id.'" class="nav nav-tabs" role="tablist">';
-    }
-
-    /**
-     * Creates Bootstrap 4 tab title.
-     *
-     * @param int $key
-     * @param string $tabtitle
-     * @param bool $printable
-     * @return string
-     */
-    private function create_tab_title($key, $tabtitle) {
-        $activeclass = $key === 0 ? 'active' : '';
-
-        return '<li class="nav-item">'
-                . '<a class="nav-link '.$activeclass.'" href="#filter-tabs-content-'
-                . self::$filtertabstabgroupcounter.'-'.($key + 1)
-                . '" data-toggle="tab" role="tab">'.$tabtitle .'</a>'
-                . '</li>';
-    }
-
-    /**
-     * Creates Bootstrap 4 tab content.
-     *
-     * @param int $key
-     * @param string $tabtext
-     * @param array $titles
-     * @return string
-     */
-    private function create_tab_content($key, $tabtext, $titles) {
-        $activeclass = $key === 0 ? 'in active' : '';
-
-        return '<div id="filter-tabs-content-'.self::$filtertabstabgroupcounter.'-'.($key + 1).'" class="tab-pane fade '
-                    . $activeclass.'" role="tabpanel">'
-                    . $this->create_tabs_container(self::$filtertabstabgroupcounter.'-printable')
-                    . $this->create_tab_title_printable($titles[$key])
-                    . '</ul>'
-                    . '<p>'.$tabtext.'</p>'
-                    . '</div>';
-    }
-
-    /**
-     * Creates Bootstrap 4 tab title printable.
-     *
-     * @param string $tabtitle
-     * @return string
-     */
-    private function create_tab_title_printable($tabtitle) {
-        return '<li class="nav-item"><span class="nav-link active">'.$tabtitle.'</span></li>';
+        return (new bootstrap4_renderer(self::$filtertabstabgroupcounter))->render($titlesandcontents);
     }
 
     /**
