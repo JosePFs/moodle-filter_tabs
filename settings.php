@@ -51,13 +51,13 @@ if ($ADMIN->fulltree) {
                 'filter_tabs/enablebootstrap',
                 get_string('selecttabs', 'filter_tabs', null, true),
                 get_string('selecttabs_desc', 'filter_tabs', null, true),
-                $version === filter_tabs::BOOTSTRAP_4_TABS ? filter_tabs::BOOTSTRAP_4_TABS : filter_tabs::BOOTSTRAP_2_TABS,
+                '4' === $version ? filter_tabs::BOOTSTRAP_4_TABS : filter_tabs::BOOTSTRAP_2_TABS,
                 $tabstypesoptions)
             );
 
     if ($bootstrapversion) {
         $suggestedoption = '';
-        if ($version !== filter_tabs::BOOTSTRAP_4_TABS) {
+        if ($version !== '4') {
             $suggestedoption .= '<br /><small>' . get_string('suggestedoption', 'filter_tabs', null, true) .
                                 ": [ \"{$tabstypesoptions[filter_tabs::BOOTSTRAP_2_TABS]}\" ]</small>";
         } else {

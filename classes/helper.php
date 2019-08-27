@@ -47,15 +47,13 @@ class filter_tabs_helper {
         global $PAGE, $CFG;
 
         $currentthemedir = isset($CFG->themedir) ? $CFG->themedir : $PAGE->theme->dir;
-        $thirdpartylibsfile = $currentthemedir . '/thirdpartylibs.xml';
-        if (($version = self::get_version_from_xml_file($thirdpartylibsfile))) {
+        if (($version = self::get_version_from_xml_file("{$currentthemedir}/thirdpartylibs.xml"))) {
             return $version;
         }
 
         $themedir = isset($CFG->themedir) ? $CFG->themedir : $CFG->dirroot . '/theme';
         foreach ($PAGE->theme->parents as $parent) {
-            $thirdpartylibsfile = $themedir . '/' . $parent . '/thirdpartylibs.xml';
-            if (($version = self::get_version_from_xml_file($thirdpartylibsfile))) {
+            if (($version = self::get_version_from_xml_file("{$themedir}/{$parent}/thirdpartylibs.xml"))) {
                 return $version;
             }
         }
