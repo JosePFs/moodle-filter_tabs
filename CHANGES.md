@@ -4,6 +4,10 @@ moodle-filter_tabs
 Changes
 -------
 
+### v3.4-r2
+
+* 2019-08-27 - Added plugin renderer
+
 ### v3.4-r1
 
 * 2019-08-23 - Added support for bookmarks

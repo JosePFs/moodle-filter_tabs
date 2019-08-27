@@ -31,20 +31,14 @@
 
 
 /* Tab title rounded corners */
-.yui3-skin-sam .yui3-tabview-content .yui3-tab:first-child .yui3-tab-label {
-    border-radius: 5px 0 0 0;
-}
-
-.dir-rtl.yui3-skin-sam .yui3-tabview-content .yui3-tab:first-child .yui3-tab-label {
-    border-radius: 0 5px 0 0;
-}
-
-.yui3-skin-sam .yui3-tabview-content .yui3-tab:last-child .yui3-tab-label {
-    border-radius: 0 5px 0 0;
-}
-
+.yui3-skin-sam .yui3-tabview-content .yui3-tab:first-child .yui3-tab-label,
 .dir-rtl.yui3-skin-sam .yui3-tabview-content .yui3-tab:last-child .yui3-tab-label {
     border-radius: 5px 0 0 0;
+}
+
+.dir-rtl.yui3-skin-sam .yui3-tabview-content .yui3-tab:first-child .yui3-tab-label,
+.yui3-skin-sam .yui3-tabview-content .yui3-tab:last-child .yui3-tab-label {
+    border-radius: 0 5px 0 0;
 }
 
 /* Tab title positioning */

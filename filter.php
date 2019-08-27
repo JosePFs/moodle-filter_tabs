@@ -53,19 +53,14 @@ class filter_tabs extends moodle_text_filter {
     const BOOTSTRAP_4_TABS = '2';
 
     /**
-     * This was implemented with a random number previously, but was changed to a static counter for performance reasons.
-     *
-     * @var integer Counter for tabgroups
-     */
-    private static $filtertabstabgroupcounter = 1;
-
-    /**
      * This function replaces the tab syntax with YUI / Bootstrap HTML code.
      *
      * @param string $text The text to filter.
      * @param array $options The filter options.
      */
     public function filter($text, array $options = array() ) {
+        global $PAGE;
+
         if (!is_string($text) || empty($text) || strpos($text, '{%') === false ||
            (!$successmatch = preg_match_all("/\{%:([^}]*)\}(.*?)\{%\}/s", $text, $matches))) {
             return $text;
@@ -73,23 +68,20 @@ class filter_tabs extends moodle_text_filter {
         // Get config.
         $filtertabsconfig = get_config('filter_tabs');
 
-        // Prepare newtext variable.
-        $newtext = '';
-
         $isbootstrapenabled = isset($filtertabsconfig->enablebootstrap) &&
                               $filtertabsconfig->enablebootstrap !== self::YUI_TABS;
 
+        $renderer = $PAGE->get_renderer('filter_tabs');
         // Generate tabs.
         if ($isbootstrapenabled && $filtertabsconfig->enablebootstrap === self::BOOTSTRAP_4_TABS) {
-            $newtext = $this->generate_bootstrap4_tabs($matches);
+            $newtext = $renderer->render_bootstrap4_tabs($matches);
         } else if ($isbootstrapenabled) {
-            $newtext = $this->generate_bootstrap2_tabs($matches);
+            $newtext = $renderer->render_bootstrap2_tabs($matches);
         } else { // Or provide legacy YUI tabs.
-            $newtext = $this->generate_yui_tabs($matches);
+            $newtext = $renderer->render_yui_tabs($matches);
         }
 
-        // Increase tabgroup counter.
-        self::$filtertabstabgroupcounter++;
+        filter_tabs_renderer::increase_group_counter();
 
         // Apply filter.
         $textbefore = substr($text, 0, strpos($text, "{%:"));
@@ -99,125 +91,5 @@ class filter_tabs extends moodle_text_filter {
                 preg_replace("/\{%:([^}]*)\}(.*?)\{%\}/s", "", $textafter);
 
         return $text;
-    }
-
-    /**
-     * Generates Bootstrap 4 tabs.
-     *
-     * @param array $titlesandcontents
-     * @return string
-     */
-    private function generate_bootstrap4_tabs(array $titlesandcontents) {
-        global $CFG;
-        require_once($CFG->dirroot . '/filter/tabs/classes/bootstrap4_renderer.php');
-
-        $this->add_js();
-
-        return (new bootstrap4_renderer(self::$filtertabstabgroupcounter))->render($titlesandcontents);
-    }
-
-    /**
-     * Generates Bootstrap 2 tabs.
-     *
-     * @param array $matches
-     * @return string
-     */
-    private function generate_bootstrap2_tabs(array $matches) {
-        $this->add_js();
-
-        // Get ID for tab group.
-        $id = self::$filtertabstabgroupcounter;
-
-        // Start tabs group.
-        $newtext = '<div id="filter-tabs-tabgroup-'.$id.'" class="filter-tabs-bootstrap">';
-
-        // Create tabs titles.
-        $newtext .= '<ul id="filter-tabs-titlegroup-'.$id.'" class="nav nav-tabs">';
-
-        // Create tabs titles.
-        foreach ($matches[1] as $key => $tabtitle) {
-            $active = '';
-            // The first tab is active.
-            if ($key === 0) {
-                $active = 'active';
-            }
-            $newtext .= '<li class="' . $active . '">'
-                        . '<a href="#filter-tabs-content-'.$id.'-'.($key + 1).'" data-toggle="tab">'.$tabtitle.'</a>'
-                        . '</li>';
-        }
-        $newtext .= '</ul>';
-
-        // Create tabs content.
-        $newtext .= '<div id="filter-tabs-content-'.$id.'" class="tab-content">';
-        foreach ($matches[2] as $key => $tabtext) {
-            $active = '';
-            // The first tab is active.
-            if ($key === 0) {
-                $active = 'active';
-            }
-            $newtext .= '<div id="filter-tabs-content-'.$id.'-'.($key + 1).'" class="tab-pane ' . $active . '">'
-                        . '<p>'.$tabtext.'</p>'
-                        . '</div>';
-        }
-
-        // End tabs content.
-        $newtext .= '</div>';
-
-        // End tabs group.
-        $newtext .= '</div>';
-
-        return $newtext;
-    }
-
-    /**
-     * Adds tabs js.
-     *
-     * @global moodle_page $PAGE
-     */
-    private function add_js() {
-        global $PAGE;
-
-        $PAGE->requires->js_call_amd('filter_tabs/tabs', 'init');
-    }
-
-    /**
-     * Generates legacy YUI tabs.
-     *
-     * @param array $matches
-     * @return string
-     */
-    private function generate_yui_tabs(array $matches) {
-        // Get ID for tab group.
-        $id = self::$filtertabstabgroupcounter;
-
-        // Start tab group.
-        $newtext = '<div id="filter-tabs-tabgroup-'.$id.'" class="filter-tabs-tabgroup yui3-tabview-loading">';
-
-        // Create tab titles.
-        $newtext .= '<ul class="filter-tabs-titlegroup">';
-        foreach ($matches[1] as $key => $tabtitle) {
-            $newtext .= '<li class="filter-tabs-title"><a href="#filter-tabs-text-'.$id.'-'.($key + 1).'">'.$tabtitle.'</a></li>';
-        }
-        $newtext .= '</ul>';
-
-        // Create tab texts.
-        $newtext .= '<div class="filter-tabs-textgroup">';
-        foreach ($matches[2] as $key => $tabtext) {
-            $newtext .= '<div id="filter-tabs-text-'.$id.'-'.($key + 1).'" class="filter-tabs-text"><p>'.$tabtext.'</p></div>';
-        }
-        $newtext .= '</div>';
-
-        // End tab group.
-        $newtext .= '</div>';
-
-        // Add YUI enhancement.
-        $newtext .= '<script type="text/javascript">
-                        YUI().use(\'tabview\', function(Y) {
-                        var tabview = new Y.TabView({srcNode:\'#filter-tabs-tabgroup-'.$id.'\'});
-                        tabview.render();
-                        });
-                </script>';
-
-        return $newtext;
     }
 }
