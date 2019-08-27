@@ -46,14 +46,16 @@ class filter_tabs_helper {
     public static function get_bootstrap_version() {
         global $PAGE, $CFG;
 
-        $currentthemedir = isset($CFG->themedir) ? $CFG->themedir : $PAGE->theme->dir;
+        $themedir = isset($CFG->themedir) ? $CFG->themedir : null;
+
+        $currentthemedir = $themedir ?: $PAGE->theme->dir;
         if (($version = self::get_version_from_xml_file("{$currentthemedir}/thirdpartylibs.xml"))) {
             return $version;
         }
 
-        $themedir = isset($CFG->themedir) ? $CFG->themedir : $CFG->dirroot . '/theme';
+        $themedirroot = $themedir ?: "{$CFG->dirroot}/theme";
         foreach ($PAGE->theme->parents as $parent) {
-            if (($version = self::get_version_from_xml_file("{$themedir}/{$parent}/thirdpartylibs.xml"))) {
+            if (($version = self::get_version_from_xml_file("{$themedirroot}/{$parent}/thirdpartylibs.xml"))) {
                 return $version;
             }
         }

@@ -53,43 +53,80 @@ class filter_tabs extends moodle_text_filter {
     const BOOTSTRAP_4_TABS = '2';
 
     /**
+     * Placeholder for tabs.
+     */
+    const PLACEHOLDER_PATTERN = '/\{%:([^}]*)\}(.*?)\{%\}/s';
+
+    /**
      * This function replaces the tab syntax with YUI / Bootstrap HTML code.
      *
      * @param string $text The text to filter.
      * @param array $options The filter options.
      */
     public function filter($text, array $options = array() ) {
-        global $PAGE;
-
-        if (!is_string($text) || empty($text) || strpos($text, '{%') === false ||
-           (!$successmatch = preg_match_all("/\{%:([^}]*)\}(.*?)\{%\}/s", $text, $matches))) {
+        if (!($matches = $this->get_matches($text))) {
             return $text;
         }
-        // Get config.
+
+        return $this->replace_text($text, $matches);
+    }
+
+    /**
+     * Looks for placeholders.
+     *
+     * @param string $text
+     * @return null|array
+     */
+    private function get_matches(string $text) {
+        if (!is_string($text) || empty($text) || strpos($text, '{%') === false ||
+            !preg_match_all(self::PLACEHOLDER_PATTERN, $text, $matches)) {
+            return null;
+        }
+        return $matches;
+    }
+
+    /**
+     * Replaces placeholders with tabs.
+     *
+     * @param string $text
+     * @param array $matches
+     * @return string
+     */
+    private function replace_text(string $text, array $matches) {
+        $textbefore = substr($text, 0, strpos($text, "{%:"));
+        $textafter = substr($text, strpos($text, "{%:"));
+        $text = preg_replace(self::PLACEHOLDER_PATTERN, "", $textbefore)
+                . $this->generate_tabs($matches) .
+                preg_replace(self::PLACEHOLDER_PATTERN, "", $textafter);
+
+        return $text;
+    }
+
+    /**
+     * Generates tabs.
+     *
+     * @param array $matches
+     * @return type
+     */
+    private function generate_tabs(array $matches) {
+        global $PAGE;
+
         $filtertabsconfig = get_config('filter_tabs');
 
         $isbootstrapenabled = isset($filtertabsconfig->enablebootstrap) &&
                               $filtertabsconfig->enablebootstrap !== self::YUI_TABS;
 
         $renderer = $PAGE->get_renderer('filter_tabs');
-        // Generate tabs.
         if ($isbootstrapenabled && $filtertabsconfig->enablebootstrap === self::BOOTSTRAP_4_TABS) {
-            $newtext = $renderer->render_bootstrap4_tabs($matches);
+            $html = $renderer->render_bootstrap4_tabs($matches);
         } else if ($isbootstrapenabled) {
-            $newtext = $renderer->render_bootstrap2_tabs($matches);
+            $html = $renderer->render_bootstrap2_tabs($matches);
         } else { // Or provide legacy YUI tabs.
-            $newtext = $renderer->render_yui_tabs($matches);
+            $html = $renderer->render_yui_tabs($matches);
         }
 
         filter_tabs_renderer::increase_group_counter();
 
-        // Apply filter.
-        $textbefore = substr($text, 0, strpos($text, "{%:"));
-        $textafter = substr($text, strpos($text, "{%:"));
-        $text = preg_replace("/\{%:([^}]*)\}(.*?)\{%\}/s", "", $textbefore)
-                . $newtext .
-                preg_replace("/\{%:([^}]*)\}(.*?)\{%\}/s", "", $textafter);
-
-        return $text;
+        return $html;
     }
 }

@@ -207,8 +207,6 @@ class filter_tabs_renderer extends plugin_renderer_base {
 
     /**
      * Adds tabs js.
-     *
-     * @global moodle_page $PAGE
      */
     private function add_js() {
         global $PAGE;
