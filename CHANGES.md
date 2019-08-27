@@ -4,8 +4,9 @@ moodle-filter_tabs
 Changes
 -------
 
-### v3.4-r2
+### v3.4-r3
 
+* 2019-08-27 - Fix styles old versions
 * 2019-08-27 - Added plugin renderer
 
 ### v3.4-r1
