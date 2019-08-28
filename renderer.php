@@ -57,23 +57,20 @@ class filter_tabs_renderer extends plugin_renderer_base {
         $this->add_js();
 
         $newtext = $this->create_tabs_group();
-        $newtext .= $this->create_tabs_container();
 
-        // Create tabs titles.
+        $newtext .= $this->create_tabs_container();
         foreach ($titlesandcontents[1] as $key => $tabtitle) {
             $newtext .= $this->create_tab_title($key, $tabtitle);
         }
-        // End tabs container.
-        $newtext .= '</ul>';
+        $newtext .= $this->close_tabs_container();
 
-        // Create tabs content.
         $newtext .= $this->create_tabs_content_container();
         foreach ($titlesandcontents[2] as $key => $tabtext) {
             $newtext .= $this->create_tab_content($key, $tabtext, $titlesandcontents[1]);
         }
+        $newtext .= $this->close_tabs_content_container();
 
-        // End tabs content. End tabs group.
-        $newtext .= '</div></div>';
+        $newtext .= $this->close_tabs_group();
 
         return $newtext;
     }
@@ -88,12 +85,30 @@ class filter_tabs_renderer extends plugin_renderer_base {
     }
 
     /**
+     * Closes Bootstrap 4 div tabs group.
+     *
+     * @return string
+     */
+    private function close_tabs_group() {
+        return '</div>';
+    }
+
+    /**
      * Creates Bootstrap 4 ul tabs container.
      *
      * @return string
      */
     private function create_tabs_container() {
         return '<ul id="filter-tabs-titlegroup-'.self::$filtertabstabgroupcounter.'" class="nav nav-tabs" role="tablist">';
+    }
+
+    /**
+     * Closes Bootstrap 4 ul tabs container.
+     *
+     * @return string
+     */
+    private function close_tabs_container() {
+        return '</ul>';
     }
 
     /**
@@ -120,6 +135,15 @@ class filter_tabs_renderer extends plugin_renderer_base {
      */
     private function create_tabs_content_container() {
         return '<div id="filter-tabs-content-'.self::$filtertabstabgroupcounter.'" class="tab-content">';
+    }
+
+    /**
+     * Closes Bootstrap 4 ul tabs content container.
+     *
+     * @return string
+     */
+    private function close_tabs_content_container() {
+        return '</div>';
     }
 
     /**
