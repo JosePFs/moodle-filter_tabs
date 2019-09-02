@@ -80,7 +80,7 @@ class filter_tabs_renderer extends plugin_renderer_base {
      *
      * @return string
      */
-    private function create_tabs_group() {
+    protected function create_tabs_group() {
         return '<div id="filter-tabs-tabgroup-'.self::$filtertabstabgroupcounter.'" class="filter-tabs-bootstrap boots-tabs">';
     }
 
@@ -89,7 +89,7 @@ class filter_tabs_renderer extends plugin_renderer_base {
      *
      * @return string
      */
-    private function close_tabs_group() {
+    protected function close_tabs_group() {
         return '</div>';
     }
 
@@ -98,7 +98,7 @@ class filter_tabs_renderer extends plugin_renderer_base {
      *
      * @return string
      */
-    private function create_tabs_container() {
+    protected function create_tabs_container() {
         return '<ul id="filter-tabs-titlegroup-'.self::$filtertabstabgroupcounter.'" class="nav nav-tabs" role="tablist">';
     }
 
@@ -107,7 +107,7 @@ class filter_tabs_renderer extends plugin_renderer_base {
      *
      * @return string
      */
-    private function close_tabs_container() {
+    protected function close_tabs_container() {
         return '</ul>';
     }
 
@@ -118,7 +118,7 @@ class filter_tabs_renderer extends plugin_renderer_base {
      * @param string $tabtitle
      * @return string
      */
-    private function create_tab_title(int $key, string $tabtitle) {
+    protected function create_tab_title(int $key, string $tabtitle) {
         $activeclass = $key === 0 ? 'active' : '';
 
         return '<li class="nav-item">'
@@ -133,7 +133,7 @@ class filter_tabs_renderer extends plugin_renderer_base {
      *
      * @return string
      */
-    private function create_tabs_content_container() {
+    protected function create_tabs_content_container() {
         return '<div id="filter-tabs-content-'.self::$filtertabstabgroupcounter.'" class="tab-content">';
     }
 
@@ -142,7 +142,7 @@ class filter_tabs_renderer extends plugin_renderer_base {
      *
      * @return string
      */
-    private function close_tabs_content_container() {
+    protected function close_tabs_content_container() {
         return '</div>';
     }
 
@@ -154,7 +154,7 @@ class filter_tabs_renderer extends plugin_renderer_base {
      * @param array $titles
      * @return string
      */
-    private function create_tab_content(int $key, string $tabtext, array $titles) {
+    protected function create_tab_content(int $key, string $tabtext, array $titles) {
         $activeclass = $key === 0 ? 'in active' : '';
 
         return '<div id="filter-tabs-content-'.self::$filtertabstabgroupcounter.'-'.($key + 1).'" class="tab-pane fade '
@@ -172,7 +172,7 @@ class filter_tabs_renderer extends plugin_renderer_base {
      * @param string $tabtitle
      * @return string
      */
-    private function create_tab_title_printable(string $tabtitle) {
+    protected function create_tab_title_printable(string $tabtitle) {
         return '<li class="nav-item"><span class="nav-link active">'.$tabtitle.'</span></li>';
     }
 
@@ -232,7 +232,7 @@ class filter_tabs_renderer extends plugin_renderer_base {
     /**
      * Adds tabs js.
      */
-    private function add_js() {
+    protected function add_js() {
         global $PAGE;
 
         $PAGE->requires->js_call_amd('filter_tabs/tabs', 'init');
