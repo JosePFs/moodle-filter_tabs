@@ -22,8 +22,6 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * filter tabs renderer
  *
@@ -233,9 +231,7 @@ class filter_tabs_renderer extends plugin_renderer_base {
      * Adds tabs js.
      */
     protected function add_js() {
-        global $PAGE;
-
-        $PAGE->requires->js_call_amd('filter_tabs/tabs', 'init');
+        $this->page->requires->js_call_amd('filter_tabs/tabs', 'init');
     }
 
     /**
