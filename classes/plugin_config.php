@@ -26,16 +26,6 @@ namespace filter_tabs;
 class plugin_config {
 
     /**
-     * Basic tabs.
-     */
-    const BASIC_MODE_TABS = '0';
-
-    /**
-     * Steps tabs.
-     */
-    const STEPS_MODE_TABS = '1';
-
-    /**
      * Legacy YUI tabs.
      */
     const YUI_TABS = '0';
@@ -50,12 +40,9 @@ class plugin_config {
      */
     const BOOTSTRAP_4_TABS = '2';
 
-    private $mode;
-
     private $style;
 
-    private function __construct(string $mode, string $style) {
-        $this->mode = $mode;
+    private function __construct(string $style) {
         $this->style = $style;
     }
 
@@ -64,14 +51,11 @@ class plugin_config {
      *
      * @return bool
      */
-    public static function create(object $filtertabsconfig) {
-        $mode = isset($filtertabsconfig->mode)
-                ? $filtertabsconfig->mode
-                : self::BASIC_MODE_TABS;
+    public static function create(\stdClass $filtertabsconfig) {
         $style = isset($filtertabsconfig->enablebootstrap)
                 ? $filtertabsconfig->enablebootstrap
                 : self::BOOTSTRAP_4_TABS;
-        return new plugin_config($mode, $style);
+        return new plugin_config($style);
     }
 
     /**
@@ -80,8 +64,7 @@ class plugin_config {
      * @return bool
      */
     public function isbootstrap4() {
-        return $this->mode === self::BASIC_MODE_TABS
-                && $this->style === self::BOOTSTRAP_4_TABS;
+        return $this->style === self::BOOTSTRAP_4_TABS;
     }
 
     /**
