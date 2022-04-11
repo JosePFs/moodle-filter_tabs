@@ -28,9 +28,6 @@ defined('MOODLE_INTERNAL') || die();
 if ($ADMIN->fulltree) {
     global $CFG;
 
-    require_once($CFG->dirroot . '/filter/tabs/classes/renderer_factory.php');
-    require_once($CFG->dirroot . '/filter/tabs/classes/plugin_config.php');
-    require_once($CFG->dirroot . '/filter/tabs/classes/helper.php');
     require_once($CFG->dirroot . '/filter/tabs/filter.php');
 
     // Appearance.
