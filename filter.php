@@ -14,15 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * Filter "tabs"
- *
- * @package    filter_tabs
- * @copyright  2013 Stefan Lehneis, University of Regensburg <stefan.lehneis@rz.uni-regensburg.de> /
- *             2014 Alexander Bias, Ulm University <alexander.bias@uni-ulm.de> /
- *             2017 José Puente <jpuentefs@gmail.com>
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
+use filter_tabs\plugin_config;
+use filter_tabs\renderer_factory;
 
 /**
  * Filter converting token text into tabs
@@ -36,24 +29,26 @@
 class filter_tabs extends moodle_text_filter {
 
     /**
-     * Legacy YUI tabs,
-     */
-    const YUI_TABS = '0';
-
-    /**
-     * Bootstrap version 2 tabs.
-     */
-    const BOOTSTRAP_2_TABS = '1';
-
-    /**
-     * Bootstrap version 4 tabs.
-     */
-    const BOOTSTRAP_4_TABS = '2';
-
-    /**
      * Placeholder for tabs.
      */
     const PLACEHOLDER_PATTERN = '/\{%:([^}]*)\}(.*?)\{%\}/s';
+
+    /**
+     * This was implemented with a random number previously, but was changed to a static counter for performance reasons.
+     *
+     * @var integer Counter for tabgroups
+     */
+    private static $tabgroupcounter = 1;
+
+    /**
+     * Insert JS scripts to page using amd.
+     *
+     * @param moodle_page $page The current page.
+     * @param context $context The current context.
+     */
+    public function setup($page, $context) {
+        $page->requires->js_call_amd('filter_tabs/tabs', 'init');
+    }
 
     /**
      * This function replaces the tab syntax with YUI / Bootstrap HTML code.
@@ -104,27 +99,22 @@ class filter_tabs extends moodle_text_filter {
      * Generates tabs.
      *
      * @param array $matches
-     * @return type
+     * @return config
      */
     private function generate_tabs(array $matches) {
-        global $PAGE;
+        $config = plugin_config::create(get_config('filter_tabs'));
+        $renderer = renderer_factory::create($config);
+        $html = $renderer->render(self::$tabgroupcounter, $matches);
 
-        $filtertabsconfig = get_config('filter_tabs');
-
-        $isbootstrapenabled = isset($filtertabsconfig->enablebootstrap) &&
-                              $filtertabsconfig->enablebootstrap !== self::YUI_TABS;
-
-        $renderer = $PAGE->get_renderer('filter_tabs');
-        if ($isbootstrapenabled && $filtertabsconfig->enablebootstrap === self::BOOTSTRAP_4_TABS) {
-            $html = $renderer->render_bootstrap4_tabs($matches);
-        } else if ($isbootstrapenabled) {
-            $html = $renderer->render_bootstrap2_tabs($matches);
-        } else { // Or provide legacy YUI tabs.
-            $html = $renderer->render_yui_tabs($matches);
-        }
-
-        filter_tabs_renderer::increase_group_counter();
+        self::increase_group_counter();
 
         return $html;
+    }
+
+    /**
+     * Increases group counter id.
+     */
+    public static function increase_group_counter() {
+        self::$tabgroupcounter++;
     }
 }

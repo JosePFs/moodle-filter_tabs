@@ -27,8 +27,11 @@ defined('MOODLE_INTERNAL') || die();
 
 if ($ADMIN->fulltree) {
     global $CFG;
-    require_once($CFG->dirroot . '/filter/tabs/filter.php');
+
+    require_once($CFG->dirroot . '/filter/tabs/classes/renderer_factory.php');
+    require_once($CFG->dirroot . '/filter/tabs/classes/plugin_config.php');
     require_once($CFG->dirroot . '/filter/tabs/classes/helper.php');
+    require_once($CFG->dirroot . '/filter/tabs/filter.php');
 
     // Appearance.
     $settings->add(new admin_setting_heading(
@@ -37,13 +40,13 @@ if ($ADMIN->fulltree) {
                 '')
             );
 
-    $tabstypesoptions = array(
-        filter_tabs::YUI_TABS => get_string('enableyui', 'filter_tabs', null, true),
-        filter_tabs::BOOTSTRAP_2_TABS => get_string('enablebootstrap2', 'filter_tabs', null, true),
-        filter_tabs::BOOTSTRAP_4_TABS => get_string('enablebootstrap4', 'filter_tabs', null, true)
+    $tabsconfigsoptions = array(
+        \filter_tabs\plugin_config::YUI_TABS => get_string('enableyui', 'filter_tabs', null, true),
+        \filter_tabs\plugin_config::BOOTSTRAP_2_TABS => get_string('enablebootstrap2', 'filter_tabs', null, true),
+        \filter_tabs\plugin_config::BOOTSTRAP_4_TABS => get_string('enablebootstrap4', 'filter_tabs', null, true)
         );
 
-    if (($bootstrapversion = filter_tabs_helper::get_bootstrap_version())) {
+    if (($bootstrapversion = \filter_tabs\helper::get_bootstrap_version())) {
         $version = substr($bootstrapversion, 0, 1);
     }
 
@@ -51,18 +54,18 @@ if ($ADMIN->fulltree) {
                 'filter_tabs/enablebootstrap',
                 get_string('selecttabs', 'filter_tabs', null, true),
                 get_string('selecttabs_desc', 'filter_tabs', null, true),
-                '4' === $version ? filter_tabs::BOOTSTRAP_4_TABS : filter_tabs::BOOTSTRAP_2_TABS,
-                $tabstypesoptions)
+                '4' === $version ? \filter_tabs\plugin_config::BOOTSTRAP_4_TABS : \filter_tabs\plugin_config::BOOTSTRAP_2_TABS,
+                $tabsconfigsoptions)
             );
 
     if ($bootstrapversion) {
         $suggestedoption = '';
         if ($version !== '4') {
             $suggestedoption .= '<br /><small>' . get_string('suggestedoption', 'filter_tabs', null, true) .
-                                ": [ \"{$tabstypesoptions[filter_tabs::BOOTSTRAP_2_TABS]}\" ]</small>";
+                                ": [ \"{$tabsconfigsoptions[\filter_tabs\plugin_config::BOOTSTRAP_2_TABS]}\" ]</small>";
         } else {
             $suggestedoption .= '<br /><small>' . get_string('suggestedoption', 'filter_tabs', null, true) .
-                                ": [ \"{$tabstypesoptions[filter_tabs::BOOTSTRAP_4_TABS]}\" ]</small>";
+                                ": [ \"{$tabsconfigsoptions[\filter_tabs\plugin_config::BOOTSTRAP_4_TABS]}\" ]</small>";
         }
 
         // Bootstrap suggestion.

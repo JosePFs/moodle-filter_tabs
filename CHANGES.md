@@ -3,6 +3,10 @@ moodle-filter_tabs
 
 Changes
 -------
+### v3.5-r1
+
+* 2022-04-11 - Fix mobile styles
+* 2022-04-11 - Renderers refactor
 
 ### v3.4-r3
 

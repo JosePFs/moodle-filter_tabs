@@ -14,13 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * Theme verifications helper
- *
- * @package    filter_tabs
- * @copyright  2017 José Puente <jpuentefs@gmail.com>
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
+namespace filter_tabs;
 
 /**
  * Checks current theme in use.
@@ -29,7 +23,7 @@
  * @copyright  2017 José Puente <jpuentefs@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class filter_tabs_helper {
+class helper {
 
     /**
      * Bootstraps's string in thirdpartylibs file.

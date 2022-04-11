@@ -115,7 +115,6 @@
     padding: 5px 0;
 }
 
-
 /*********************************/
 /* Tab styles for Bootstrap tabs */
 /*********************************/
@@ -138,6 +137,14 @@
 .filter-tabs-bootstrap.boots-tabs .tab-pane:target {
     padding-top: 0 !important;
     margin-top: 0 !important;
+}
+
+@media (max-width: 575px) {
+    
+    .filter-tabs-bootstrap.boots-tabs .nav-tabs {
+        flex-direction: column;
+    }
+
 }
 
 /********************************/
