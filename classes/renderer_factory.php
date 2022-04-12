@@ -32,8 +32,9 @@ use filter_tabs\renderer\renderer;
 class renderer_factory {
 
     /**
-     * @param plugin_config $config
+     * Returns renderer depending on tabs style
      *
+     * @param plugin_config $config
      * @return renderer
      */
     public static function create(plugin_config $config) {

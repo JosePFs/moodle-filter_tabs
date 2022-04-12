@@ -25,8 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-global $CFG;
-require_once($CFG->dirroot . '/filter/tabs/filter.php');
+use filter_tabs\plugin_config;
 
 /**
  * Tests for filter_tabs.
@@ -40,7 +39,7 @@ class filter_tabs_filter_testcase extends advanced_testcase {
     /**
      * Tests setup
      */
-    public function setUp() {
+    public function setUp() : void {
         parent::setUp();
 
         $this->resetAfterTest(true);
@@ -63,33 +62,33 @@ class filter_tabs_filter_testcase extends advanced_testcase {
      * Test filter modified yui
      */
     public function test_filter_modified_yui() {
-        set_config('enablebootstrap', filter_tabs::YUI_TABS, 'filter_tabs');
+        set_config('enablebootstrap', plugin_config::YUI_TABS, 'filter_tabs');
 
         $html = '<p>{%:First tab}Some text{%}{%:Second tab}Another text{%}</p>';
         $filtered = format_text($html, FORMAT_HTML);
-        $this->assertContains('yui3-tabview-loading', $filtered);
+        $this->assertStringContainsStringIgnoringCase('yui3-tabview-loading', $filtered);
     }
 
     /**
      * Test filter modified bootstrap2
      */
     public function test_filter_modified_bootstrap2() {
-        set_config('enablebootstrap', filter_tabs::BOOTSTRAP_2_TABS, 'filter_tabs');
+        set_config('enablebootstrap', plugin_config::BOOTSTRAP_2_TABS, 'filter_tabs');
 
         $html = '<p>{%:First tab}Some text{%}{%:Second tab}Another text{%}</p>';
         $filtered = format_text($html, FORMAT_HTML);
-        $this->assertContains('tab-content', $filtered);
-        $this->assertNotContains('boots-tabs', $filtered);
+        $this->assertStringContainsStringIgnoringCase('tab-content', $filtered);
+        $this->assertStringNotContainsString('boots-tabs', $filtered);
     }
 
     /**
      * Test filter modified bootstrap4
      */
     public function test_filter_modified_bootstrap4() {
-        set_config('enablebootstrap', filter_tabs::BOOTSTRAP_4_TABS, 'filter_tabs');
+        set_config('enablebootstrap', plugin_config::BOOTSTRAP_4_TABS, 'filter_tabs');
 
         $html = '<p>{%:First tab}Some text{%}{%:Second tab}Another text{%}</p>';
         $filtered = format_text($html, FORMAT_HTML);
-        $this->assertContains('boots-tabs', $filtered);
+        $this->assertStringContainsStringIgnoringCase('boots-tabs', $filtered);
     }
 }
