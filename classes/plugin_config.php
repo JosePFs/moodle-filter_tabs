@@ -40,8 +40,16 @@ class plugin_config {
      */
     const BOOTSTRAP_4_TABS = '2';
 
+    /**
+     * @var string Tabs type
+     */
     private $style;
 
+    /**
+     * Private constructor
+     *
+     * @param string $style
+     */
     private function __construct(string $style) {
         $this->style = $style;
     }
@@ -49,6 +57,7 @@ class plugin_config {
     /**
      * Creates config plugin.
      *
+     * @param \stdClass $filtertabsconfig
      * @return bool
      */
     public static function create(\stdClass $filtertabsconfig) {

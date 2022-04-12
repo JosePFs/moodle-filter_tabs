@@ -140,7 +140,7 @@
 }
 
 @media (max-width: 575px) {
-    
+
     .filter-tabs-bootstrap.boots-tabs .nav-tabs {
         flex-direction: column;
     }

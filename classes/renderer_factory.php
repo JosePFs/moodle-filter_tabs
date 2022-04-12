@@ -20,7 +20,7 @@ use filter_tabs\plugin_config;
 use filter_tabs\renderer\renderer_bootstrap4;
 use filter_tabs\renderer\renderer_bootstrap2;
 use filter_tabs\renderer\renderer_yui;
-
+use filter_tabs\renderer\renderer;
 
 /**
  * Tabs renderers factory
@@ -31,6 +31,11 @@ use filter_tabs\renderer\renderer_yui;
  */
 class renderer_factory {
 
+    /**
+     * @param plugin_config $config
+     *
+     * @return renderer
+     */
     public static function create(plugin_config $config) {
         if ($config->isbootstrap4()) {
             return new renderer_bootstrap4();

@@ -30,16 +30,17 @@ class renderer_yui implements renderer {
     /**
      * Generates legacy YUI tabs.
      *
-     * @param array $matches
+     * @param int $tabgroupcounter
+     * @param array $titlesandcontents
      * @return string
      */
-    public function render(int $tabgroupcounter, array $matches) {
+    public function render(int $tabgroupcounter, array $titlesandcontents) {
         // Start tab group.
         $newtext = '<div id="filter-tabs-tabgroup-'.$tabgroupcounter.'" class="filter-tabs-tabgroup yui3-tabview-loading">';
 
         // Create tab titles.
         $newtext .= '<ul class="filter-tabs-titlegroup">';
-        foreach ($matches[1] as $key => $tabtitle) {
+        foreach ($titlesandcontents[1] as $key => $tabtitle) {
             $newtext .= '<li class="filter-tabs-title">'
                     . '<a href="#filter-tabs-text-'.$tabgroupcounter.'-'.($key + 1).'">'.$tabtitle.'</a>'
                     . '</li>';
@@ -48,7 +49,7 @@ class renderer_yui implements renderer {
 
         // Create tab texts.
         $newtext .= '<div class="filter-tabs-textgroup">';
-        foreach ($matches[2] as $key => $tabtext) {
+        foreach ($titlesandcontents[2] as $key => $tabtext) {
             $newtext .= '<div id="filter-tabs-text-'.$tabgroupcounter.'-'.($key + 1).'" class="filter-tabs-text">'
                     . '<p>'.$tabtext.'</p>'
                     . '</div>';

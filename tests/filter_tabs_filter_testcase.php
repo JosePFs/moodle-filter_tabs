@@ -37,6 +37,9 @@ require_once($CFG->dirroot . '/filter/tabs/filter.php');
  */
 class filter_tabs_filter_testcase extends advanced_testcase {
 
+    /**
+     * Tests setup
+     */
     public function setUp() {
         parent::setUp();
 
@@ -47,12 +50,18 @@ class filter_tabs_filter_testcase extends advanced_testcase {
         filter_set_global_state('tabs', TEXTFILTER_ON);
     }
 
+    /**
+     * Test filter no modified
+     */
     public function test_filter_no_modified() {
         $html = '<p>No modificable content</p>';
         $filtered = format_text($html, FORMAT_HTML);
         $this->assertEquals($html, $filtered);
     }
 
+    /**
+     * Test filter modified yui
+     */
     public function test_filter_modified_yui() {
         set_config('enablebootstrap', filter_tabs::YUI_TABS, 'filter_tabs');
 
@@ -61,6 +70,9 @@ class filter_tabs_filter_testcase extends advanced_testcase {
         $this->assertContains('yui3-tabview-loading', $filtered);
     }
 
+    /**
+     * Test filter modified bootstrap2
+     */
     public function test_filter_modified_bootstrap2() {
         set_config('enablebootstrap', filter_tabs::BOOTSTRAP_2_TABS, 'filter_tabs');
 
@@ -70,6 +82,9 @@ class filter_tabs_filter_testcase extends advanced_testcase {
         $this->assertNotContains('boots-tabs', $filtered);
     }
 
+    /**
+     * Test filter modified bootstrap4
+     */
     public function test_filter_modified_bootstrap4() {
         set_config('enablebootstrap', filter_tabs::BOOTSTRAP_4_TABS, 'filter_tabs');
 

@@ -30,6 +30,7 @@ class renderer_bootstrap4 implements renderer {
     /**
      * Renders Bootstrap 4 tabs.
      *
+     * @param int $tabgroupcounter
      * @param array $titlesandcontents
      * @return string
      */

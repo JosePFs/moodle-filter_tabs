@@ -14,10 +14,18 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Creates Bootstrap 4 tabs.
+ *
+ * @package    filter_tabs
+ * @copyright  2022 José Puente <jpuentefs@gmail.com>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 namespace filter_tabs\renderer;
 
 /**
- * Renderer strategy interface for filter tabs
+ * Renderer strategy interface for filter tabs.
  *
  * @package    filter_tabs
  * @copyright  2022 José Puente <jpuentefs@gmail.com>
@@ -29,6 +37,7 @@ interface renderer {
      * Creates Bootstrap 4 tabs.
      *
      * @param int $tabgroupcounter
+     * @param array $titlesandcontents
      * @return string
      */
     public function render(int $tabgroupcounter, array $titlesandcontents);

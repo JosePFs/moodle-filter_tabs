@@ -30,6 +30,7 @@ class renderer_bootstrap2 implements renderer {
     /**
      * Generates Bootstrap 2 tabs.
      *
+     * @param int $tabgroupcounter
      * @param array $matches
      * @return string
      */
