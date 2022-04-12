@@ -23,7 +23,7 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-use filter_tabs\plugin_config;
+use filter_tabs\config;
 
 /**
  * Tests for filter_tabs.
@@ -60,7 +60,7 @@ class filter_tabs_filter_testcase extends advanced_testcase {
      * Test filter modified yui
      */
     public function test_filter_modified_yui() {
-        set_config('enablebootstrap', plugin_config::YUI_TABS, 'filter_tabs');
+        set_config('enablebootstrap', config::YUI_TABS, 'filter_tabs');
 
         $html = '<p>{%:First tab}Some text{%}{%:Second tab}Another text{%}</p>';
         $filtered = format_text($html, FORMAT_HTML);
@@ -71,7 +71,7 @@ class filter_tabs_filter_testcase extends advanced_testcase {
      * Test filter modified bootstrap2
      */
     public function test_filter_modified_bootstrap2() {
-        set_config('enablebootstrap', plugin_config::BOOTSTRAP_2_TABS, 'filter_tabs');
+        set_config('enablebootstrap', config::BOOTSTRAP_2_TABS, 'filter_tabs');
 
         $html = '<p>{%:First tab}Some text{%}{%:Second tab}Another text{%}</p>';
         $filtered = format_text($html, FORMAT_HTML);
@@ -83,7 +83,7 @@ class filter_tabs_filter_testcase extends advanced_testcase {
      * Test filter modified bootstrap4
      */
     public function test_filter_modified_bootstrap4() {
-        set_config('enablebootstrap', plugin_config::BOOTSTRAP_4_TABS, 'filter_tabs');
+        set_config('enablebootstrap', config::BOOTSTRAP_4_TABS, 'filter_tabs');
 
         $html = '<p>{%:First tab}Some text{%}{%:Second tab}Another text{%}</p>';
         $filtered = format_text($html, FORMAT_HTML);

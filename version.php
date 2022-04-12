@@ -26,7 +26,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'filter_tabs';
-$plugin->version = 2022041103;
-$plugin->release = 'v3.5-r3';
+$plugin->version = 2022041300;
+$plugin->release = '4.0.0';
 $plugin->requires = 2016052300;
 $plugin->maturity = MATURITY_STABLE;

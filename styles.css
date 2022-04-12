@@ -133,12 +133,6 @@
     margin-bottom: 20px;
 }
 
-/* Fix Moodle 3.2 Bootstrap 4 alpha */
-.filter-tabs-bootstrap.boots-tabs .tab-pane:target {
-    padding-top: 0 !important;
-    margin-top: 0 !important;
-}
-
 @media (max-width: 575px) {
 
     .filter-tabs-bootstrap.boots-tabs .nav-tabs {

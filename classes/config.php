@@ -23,35 +23,46 @@ namespace filter_tabs;
  * @copyright  2022 José Puente <jpuentefs@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class plugin_config {
+class config {
 
     /**
      * Legacy YUI tabs.
      */
-    const YUI_TABS = '0';
+    const YUI_TABS = "0";
 
     /**
      * Bootstrap version 2 tabs.
      */
-    const BOOTSTRAP_2_TABS = '1';
+    const BOOTSTRAP_2_TABS = "1";
 
     /**
      * Bootstrap version 4 tabs.
      */
-    const BOOTSTRAP_4_TABS = '2';
+    const BOOTSTRAP_4_TABS = "2";
 
     /**
-     * @var string Tabs type
+     * Templates filename mapping.
+     *
+     * @var array
      */
-    private $style;
+    const TEMPLATES = [
+        self::YUI_TABS => "filter_tabs/yui",
+        self::BOOTSTRAP_2_TABS => "filter_tabs/bootstrap2",
+        self::BOOTSTRAP_4_TABS => "filter_tabs/bootstrap4",
+    ];
+
+    /**
+     * @var string Template filename
+     */
+    private $template;
 
     /**
      * Private constructor
      *
-     * @param string $style
+     * @param string $template
      */
-    private function __construct(string $style) {
-        $this->style = $style;
+    private function __construct(string $template) {
+        $this->template = $template;
     }
 
     /**
@@ -61,36 +72,18 @@ class plugin_config {
      * @return bool
      */
     public static function create(\stdClass $filtertabsconfig) {
-        $style = isset($filtertabsconfig->enablebootstrap)
+        $type = isset($filtertabsconfig->enablebootstrap)
                 ? $filtertabsconfig->enablebootstrap
                 : self::BOOTSTRAP_4_TABS;
-        return new plugin_config($style);
+        return new config(self::TEMPLATES[$type]);
     }
 
     /**
-     * True when are Bootstrap 4 tabs.
+     * Gets template filename.
      *
-     * @return bool
+     * @return string
      */
-    public function isbootstrap4() {
-        return $this->style === self::BOOTSTRAP_4_TABS;
-    }
-
-    /**
-     * True when are Bootstrap 2 tabs.
-     *
-     * @return bool
-     */
-    public function isbootstrap2() {
-        return $this->style === self::BOOTSTRAP_2_TABS;
-    }
-
-    /**
-     * True when are YUI tabs.
-     *
-     * @return bool
-     */
-    public function isyui() {
-        return $this->style === self::YUI_TABS;
+    public function get_template() {
+        return $this->template;
     }
 }

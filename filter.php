@@ -14,8 +14,10 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-use filter_tabs\plugin_config;
-use filter_tabs\renderer_factory;
+use filter_tabs\config;
+use filter_tabs\output\renderable;
+use filter_tabs\output\renderer;
+use filter_tabs\tab;
 
 /**
  * Filter converting token text into tabs
@@ -34,11 +36,18 @@ class filter_tabs extends moodle_text_filter {
     const PLACEHOLDER_PATTERN = '/\{%:([^}]*)\}(.*?)\{%\}/s';
 
     /**
-     * This was implemented with a random number previously, but was changed to a static counter for performance reasons.
+     * Page.
      *
-     * @var integer Counter for tabgroups
+     * @var moodle_page $page.
      */
-    private static $tabgroupcounter = 1;
+    private $page;
+
+    /**
+     * Plugin renderer.
+     *
+     * @var renderer $renderer.
+     */
+    private $renderer;
 
     /**
      * Insert JS scripts to page using amd.
@@ -47,6 +56,7 @@ class filter_tabs extends moodle_text_filter {
      * @param context $context The current context.
      */
     public function setup($page, $context) {
+        $this->page = $page;
         $page->requires->js_call_amd('filter_tabs/tabs', 'init');
     }
 
@@ -72,7 +82,7 @@ class filter_tabs extends moodle_text_filter {
      */
     private function get_matches(string $text) {
         if (!is_string($text) || empty($text) || strpos($text, '{%') === false ||
-            !preg_match_all(self::PLACEHOLDER_PATTERN, $text, $matches)) {
+            !preg_match_all(self::PLACEHOLDER_PATTERN, $text, $matches, PREG_SET_ORDER | PREG_OFFSET_CAPTURE)) {
             return null;
         }
         return $matches;
@@ -99,22 +109,16 @@ class filter_tabs extends moodle_text_filter {
      * Generates tabs.
      *
      * @param array $matches
-     * @return config
+     * @return string
      */
     private function generate_tabs(array $matches) {
-        $config = plugin_config::create(get_config('filter_tabs'));
-        $renderer = renderer_factory::create($config);
-        $html = $renderer->render(self::$tabgroupcounter, $matches);
+        if ($this->renderer === null) {
+            $this->renderer = $this->page->get_renderer('filter_tabs');
+        }
 
-        self::increase_group_counter();
+        $config = config::create(get_config('filter_tabs'));
+        $tabs = tab::from_matches($matches);
 
-        return $html;
-    }
-
-    /**
-     * Increases group counter id.
-     */
-    public static function increase_group_counter() {
-        self::$tabgroupcounter++;
+        return $this->renderer->render(new renderable($config->get_template(), $tabs));
     }
 }

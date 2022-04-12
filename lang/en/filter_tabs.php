@@ -37,3 +37,5 @@ $string['enablebootstrap4'] = 'Enable Bootstrap 4 tabs for use with Bootstrap 4 
 $string['selecttabs_hint'] = 'Bootstrap version used by the current theme';
 $string['suggestedoption'] = 'Suggested option';
 $string['previewheading'] = 'Preview';
+$string['privacy:metadata'] = 'The tabs filter does not store any personal data.';
+

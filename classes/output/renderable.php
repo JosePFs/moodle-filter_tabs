@@ -14,31 +14,55 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+namespace filter_tabs\output;
+
 /**
- * Creates Bootstrap 4 tabs.
+ * Renderable tabs.
  *
  * @package    filter_tabs
  * @copyright  2022 José Puente <jpuentefs@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-namespace filter_tabs\renderer;
-
-/**
- * Renderer strategy interface for filter tabs.
- *
- * @package    filter_tabs
- * @copyright  2022 José Puente <jpuentefs@gmail.com>
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-interface renderer {
+class renderable implements \renderable, \templatable {
 
     /**
-     * Creates Bootstrap 4 tabs.
+     * Template filename.
      *
-     * @param int $tabgroupcounter
-     * @param array $titlesandcontents
+     * @var string $template
+     */
+    private $template;
+
+    /**
+     * Tabs.
+     *
+     * @var array $tabs
+     */
+    private $tabs;
+
+    /**
+     * Creates renderable.
+     *
+     * @param array $tabs
+     */
+    public function __construct(string $template, array $tabs) {
+        $this->template = $template;
+        $this->tabs = $tabs;
+    }
+
+    /**
+     * Gets $templatetype
+     *
      * @return string
      */
-    public function render(int $tabgroupcounter, array $titlesandcontents);
+    public function get_template() {
+        return $this->template;
+    }
+
+    public function export_for_template(\renderer_base $renderer) {
+        return [
+            'tabgroupcounter' => renderer::get_group_counter(),
+            'tabs' => $this->tabs,
+        ];
+    }
+
 }

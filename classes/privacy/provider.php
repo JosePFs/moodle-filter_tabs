@@ -14,37 +14,24 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace filter_tabs;
-
-use filter_tabs\plugin_config;
-use filter_tabs\renderer\renderer_bootstrap4;
-use filter_tabs\renderer\renderer_bootstrap2;
-use filter_tabs\renderer\renderer_yui;
-use filter_tabs\renderer\renderer;
+namespace filter_tabs\privacy;
 
 /**
- * Tabs renderers factory
+ * Privacy Subsystem for filter_tabs implementing null_provider.
  *
  * @package    filter_tabs
  * @copyright  2022 José Puente <jpuentefs@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class renderer_factory {
+class provider implements \core_privacy\local\metadata\null_provider {
 
     /**
-     * Returns renderer depending on tabs style
+     * Get the language string identifier with the component's language
+     * file to explain why this plugin stores no data.
      *
-     * @param plugin_config $config
-     * @return renderer
+     * @return  string
      */
-    public static function create(plugin_config $config) {
-        if ($config->isbootstrap4()) {
-            return new renderer_bootstrap4();
-        } else if ($config->isbootstrap2()) {
-            return new renderer_bootstrap2();
-        } else {
-            return new renderer_yui();
-        }
+    public static function get_reason() : string {
+        return 'privacy:metadata';
     }
-
 }

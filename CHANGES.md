@@ -3,6 +3,12 @@ moodle-filter_tabs
 
 Changes
 -------
+### 4.0.0
+
+* 2022-04-13 - Added privacy config
+* 2022-04-13 - Added mustache templates
+* 2022-04-13 - Changed versioning
+
 ### v3.5-r1
 
 * 2022-04-11 - Fix mobile styles
