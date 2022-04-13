@@ -42,6 +42,7 @@ class renderable implements \renderable, \templatable {
     /**
      * Creates renderable.
      *
+     * @param string $template
      * @param array $tabs
      */
     public function __construct(string $template, array $tabs) {
@@ -58,6 +59,13 @@ class renderable implements \renderable, \templatable {
         return $this->template;
     }
 
+    /**
+     * Export data for template.
+     *
+     * @param \renderer_base $renderer
+     *
+     * @return array
+     */
     public function export_for_template(\renderer_base $renderer) {
         return [
             'tabgroupcounter' => renderer::get_group_counter(),

@@ -35,7 +35,7 @@ class renderer extends \plugin_renderer_base {
     /**
      * Creates tabs.
      *
-     * @param renderable_tabs $renderabletabs
+     * @param renderable $renderable
      * @return string
      */
     public function render_renderable(renderable $renderable) {
