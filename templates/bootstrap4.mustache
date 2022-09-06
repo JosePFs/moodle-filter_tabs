@@ -32,7 +32,7 @@
     <ul id="filter-tabs-titlegroup-{{tabgroupcounter}}" class="nav nav-tabs" role="tablist">
         {{#tabs}}
             <li class="nav-item">
-                <a class="nav-link {{get_active}}" href="#filter-tabs-content-{{tabgroupcounter}}-{{get_key}}" data-toggle="tab" role="tab">{{get_title}}</a>
+                <a class="nav-link {{get_active}}" href="#filter-tabs-content-{{tabgroupcounter}}-{{get_key}}" data-toggle="tab" role="tab" aria-controls="filter-tabs-content-{{tabgroupcounter}}-{{get_key}}">{{get_title}}</a>
             </li>
         {{/tabs}}
     </ul>
@@ -44,7 +44,7 @@
                         <span class="nav-link active">{{get_title}}</span>
                     </li>
                 </ul>
-                <p>{{get_content}}</p>
+                {{{get_content}}}
             </div>
         {{/tabs}}
     </div>

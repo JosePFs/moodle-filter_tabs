@@ -3,6 +3,11 @@ moodle-filter_tabs
 
 Changes
 -------
+### 4.0.1
+
+* 2022-09-06 - Add aria controls
+* 2022-09-06 - Fix mustache templates html escaped
+
 ### 4.0.0
 
 * 2022-04-13 - Added privacy config
