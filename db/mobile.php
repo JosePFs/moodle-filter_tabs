@@ -15,18 +15,23 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Filter "tabs" - Version file
+ * Tabs filter upgrade code.
  *
  * @package    filter_tabs
- * @copyright  2014 Alexander Bias, Ulm University <alexander.bias@uni-ulm.de> /
- *             2017 José Puente <jpuentefs@gmail.com>
+ * @copyright  2017 José Puente <jpuentefs@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
-$plugin->component = 'filter_tabs';
-$plugin->version = 2022041303;
-$plugin->release = '4.0.2';
-$plugin->requires = 2016052300;
-$plugin->maturity = MATURITY_STABLE;
+$addons = [
+    'filter_tabs' => [
+        'handlers' => [
+            'tab_filter' => [
+                'init' => 'mobile_init',
+                'styles' => [
+                    'url' => $CFG->wwwroot . '/filter/tabs/mobile/css/tabs.css',
+                    'version' => '1.0'
+                ]
+            ]
+        ]
+    ]
+];

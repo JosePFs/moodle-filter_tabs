@@ -29,17 +29,17 @@
     }
 }}
 <div id="filter-tabs-tabgroup-{{tabgroupcounter}}" class="filter-tabs-bootstrap boots-tabs">
-    <ul id="filter-tabs-titlegroup-{{tabgroupcounter}}" class="nav nav-tabs" role="tablist">
+    <ul id="filter-tabs-titlegroup-{{tabgroupcounter}}" class="nav nav-tabs d-print-none" role="tablist">
         {{#tabs}}
             <li class="nav-item">
-                <a class="nav-link {{get_active}}" href="#filter-tabs-content-{{tabgroupcounter}}-{{get_key}}" data-toggle="tab" role="tab" aria-controls="filter-tabs-content-{{tabgroupcounter}}-{{get_key}}">{{get_title}}</a>
+                <a class="nav-link {{get_active}} filter-tabs" href="#filter-tabs-content-{{tabgroupcounter}}-{{get_key}}" data-toggle="tab" role="tab" aria-controls="filter-tabs-content-{{tabgroupcounter}}-{{get_key}}">{{get_title}}</a>
             </li>
         {{/tabs}}
     </ul>
     <div id="filter-tabs-content-{{tabgroupcounter}}" class="tab-content">
         {{#tabs}}
-            <div id="filter-tabs-content-{{tabgroupcounter}}-{{get_key}}" class="tab-pane fade in {{get_active}}" role="tabpanel">
-                <ul id="filter-tabs-titlegroup-{{tabgroupcounter}}-printable" class="nav nav-tabs" role="tablist">
+            <div id="filter-tabs-content-{{tabgroupcounter}}-{{get_key}}" class="tab-pane fade in {{get_active}} filter-tabs" role="tabpanel">
+                <ul id="filter-tabs-titlegroup-{{tabgroupcounter}}-printable" class="nav nav-tabs d-none d-print-block" role="tablist">
                     <li class="nav-item">
                         <span class="nav-link active">{{get_title}}</span>
                     </li>

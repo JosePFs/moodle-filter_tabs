@@ -91,7 +91,7 @@ class tab {
      */
     public static function from_matches(array $matches) {
         return array_map(function ($match, $key) {
-            return static::create($match[1][0], $match[2][0], $key + 1, $key === 0 ? "active" : "");
+            return static::create($match[1][0], $match[2][0], $key + 1, $key === 0 ? "active show" : "");
         }, $matches, array_keys($matches));
     }
 
