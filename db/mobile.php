@@ -22,6 +22,8 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die();
+
 $addons = [
     'filter_tabs' => [
         'handlers' => [
@@ -29,9 +31,9 @@ $addons = [
                 'init' => 'mobile_init',
                 'styles' => [
                     'url' => $CFG->wwwroot . '/filter/tabs/mobile/css/tabs.css',
-                    'version' => '1.0'
-                ]
-            ]
-        ]
-    ]
+                    'version' => '1.0',
+                ],
+            ],
+        ],
+    ],
 ];

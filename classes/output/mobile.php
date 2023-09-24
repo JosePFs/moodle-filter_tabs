@@ -25,7 +25,7 @@ namespace filter_tabs\output;
  */
 class mobile {
 
-    public static function mobile_init($args) {
+    public static function mobile_init($args):  array|null {
         global $CFG;
 
         if (!filter_is_enabled('tabs')) {

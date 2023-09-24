@@ -5,36 +5,37 @@
     display: flex;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    padding-left: 0;
-    margin-bottom: 0;
-    margin-top: 0;
+    padding: 0;
+    margin: 0 0 5px 0;
     list-style: none;
   }
 
   .nav-tabs {
     border-bottom: 1px solid #dee2e6;
     margin-top: 0;
-  }
 
-  .nav-tabs .nav-item {
-    margin-bottom: -1px;
-  }
+    .nav-link {
+      display: block;
+      padding: 0.5rem 1rem;
+      border-top-left-radius: 0.25rem;
+      border-top-right-radius: 0.25rem;
+      background-color: transparent;
+      border: 1px solid;
+      border-color: #dee2e6 #dee2e6 #fff;
+      text-decoration: none;
+    }
 
-  .nav-tabs .nav-link {
-    border: 1px solid transparent;
-    border-top-left-radius: 0.25rem;
-    border-top-right-radius: 0.25rem;
-  }
+    .nav-link.active {
+      background-color: #fff;
+      color: #495057;
+    }
 
-  .nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
-    color: #495057;
-    background-color: #fff;
-    border-color: #dee2e6 #dee2e6 #fff;
-  }
-
-  .nav-link {
-    display: block;
-    padding: 0.5rem 1rem;
+    .nav-item {
+      margin-bottom: -1px;
+      @media (max-width: 767px) {
+        width: 100%;
+      }
+    }
   }
 
   .tab-content > .tab-pane {
