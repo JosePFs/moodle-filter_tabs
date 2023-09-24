@@ -23,6 +23,9 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+use filter_tabs\config;
+use filter_tabs\helper;
+
 defined('MOODLE_INTERNAL') || die();
 
 if ($ADMIN->fulltree) {
@@ -37,13 +40,14 @@ if ($ADMIN->fulltree) {
                 '')
             );
 
-    $tabsconfigsoptions = array(
-        \filter_tabs\config::YUI_TABS => get_string('enableyui', 'filter_tabs', null, true),
-        \filter_tabs\config::BOOTSTRAP_2_TABS => get_string('enablebootstrap2', 'filter_tabs', null, true),
-        \filter_tabs\config::BOOTSTRAP_4_TABS => get_string('enablebootstrap4', 'filter_tabs', null, true)
-        );
+    $tabsconfigsoptions = [
+        config::YUI_TABS => get_string('enableyui', 'filter_tabs', null, true),
+        config::BOOTSTRAP_2_TABS => get_string('enablebootstrap2', 'filter_tabs', null, true),
+        config::BOOTSTRAP_4_TABS => get_string('enablebootstrap4', 'filter_tabs', null, true),
+        ];
 
-    if (($bootstrapversion = \filter_tabs\helper::get_bootstrap_version())) {
+    $version = null;
+    if (($bootstrapversion = helper::get_bootstrap_version())) {
         $version = substr($bootstrapversion, 0, 1);
     }
 
@@ -51,7 +55,7 @@ if ($ADMIN->fulltree) {
                 'filter_tabs/enablebootstrap',
                 get_string('selecttabs', 'filter_tabs', null, true),
                 get_string('selecttabs_desc', 'filter_tabs', null, true),
-                '4' === $version ? \filter_tabs\config::BOOTSTRAP_4_TABS : \filter_tabs\config::BOOTSTRAP_2_TABS,
+                '4' === $version ? config::BOOTSTRAP_4_TABS : config::BOOTSTRAP_2_TABS,
                 $tabsconfigsoptions)
             );
 
@@ -59,10 +63,10 @@ if ($ADMIN->fulltree) {
         $suggestedoption = '';
         if ($version !== '4') {
             $suggestedoption .= '<br /><small>' . get_string('suggestedoption', 'filter_tabs', null, true) .
-                                ": [ \"{$tabsconfigsoptions[\filter_tabs\config::BOOTSTRAP_2_TABS]}\" ]</small>";
+                                ": [ \"{$tabsconfigsoptions[config::BOOTSTRAP_2_TABS]}\" ]</small>";
         } else {
             $suggestedoption .= '<br /><small>' . get_string('suggestedoption', 'filter_tabs', null, true) .
-                                ": [ \"{$tabsconfigsoptions[\filter_tabs\config::BOOTSTRAP_4_TABS]}\" ]</small>";
+                                ": [ \"{$tabsconfigsoptions[config::BOOTSTRAP_4_TABS]}\" ]</small>";
         }
 
         // Bootstrap suggestion.
@@ -74,7 +78,7 @@ if ($ADMIN->fulltree) {
 
         // Preview.
         $context = context_system::instance();
-        $filtertabs = new filter_tabs($context, array());
+        $filtertabs = new filter_tabs($context, []);
         $filtertabs->setup($PAGE, $context);
         $tabsfilteredtext = $filtertabs->filter('{%:First tab}Some text{%}{%:Second tab}Another text{%}');
         $settings->add(new admin_setting_heading(

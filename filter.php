@@ -33,21 +33,21 @@ class filter_tabs extends moodle_text_filter {
     /**
      * Placeholder for tabs.
      */
-    const PLACEHOLDER_PATTERN = '/\{%:([^}]*)\}(.*?)\{%\}/s';
+    const PLACEHOLDER_PATTERN = '/\{%:([^}]*)}(.*?)\{%}/s';
 
     /**
      * Page.
      *
      * @var moodle_page $page.
      */
-    private $page;
+    public moodle_page $page;
 
     /**
      * Plugin renderer.
      *
      * @var renderer $renderer.
      */
-    private $renderer;
+    private static renderer $renderer;
 
     /**
      * Insert JS scripts to page using amd.
@@ -55,9 +55,16 @@ class filter_tabs extends moodle_text_filter {
      * @param moodle_page $page The current page.
      * @param context $context The current context.
      */
-    public function setup($page, $context) {
+    public function setup($page, $context): void {
         $this->page = $page;
-        $page->requires->js_call_amd('filter_tabs/tabs', 'init');
+
+        static $initialised = false;
+
+        if (!$initialised) {
+            $page->requires->js_call_amd('filter_tabs/tabs', 'init');
+            $initialised = true;
+        }
+
     }
 
     /**
@@ -66,7 +73,7 @@ class filter_tabs extends moodle_text_filter {
      * @param string $text The text to filter.
      * @param array $options The filter options.
      */
-    public function filter($text, array $options = array() ) {
+    public function filter($text, array $options = [] ): string {
         if (!($matches = $this->get_matches($text))) {
             return $text;
         }
@@ -80,8 +87,8 @@ class filter_tabs extends moodle_text_filter {
      * @param string $text
      * @return null|array
      */
-    private function get_matches(string $text) {
-        if (!is_string($text) || empty($text) || strpos($text, '{%') === false ||
+    private function get_matches(string $text): ?array {
+        if (!is_string($text) || empty($text) || !str_contains($text, '{%') ||
             !preg_match_all(self::PLACEHOLDER_PATTERN, $text, $matches, PREG_SET_ORDER | PREG_OFFSET_CAPTURE)) {
             return null;
         }
@@ -95,14 +102,12 @@ class filter_tabs extends moodle_text_filter {
      * @param array $matches
      * @return string
      */
-    private function replace_text(string $text, array $matches) {
+    private function replace_text(string $text, array $matches): string {
         $textbefore = substr($text, 0, strpos($text, "{%:"));
         $textafter = substr($text, strpos($text, "{%:"));
-        $text = preg_replace(self::PLACEHOLDER_PATTERN, "", $textbefore)
+        return preg_replace(self::PLACEHOLDER_PATTERN, "", $textbefore)
                 . $this->generate_tabs($matches) .
                 preg_replace(self::PLACEHOLDER_PATTERN, "", $textafter);
-
-        return $text;
     }
 
     /**
@@ -111,14 +116,14 @@ class filter_tabs extends moodle_text_filter {
      * @param array $matches
      * @return string
      */
-    private function generate_tabs(array $matches) {
-        if ($this->renderer === null) {
-            $this->renderer = $this->page->get_renderer('filter_tabs');
+    private function generate_tabs(array $matches): string {
+        if (!isset(self::$renderer)) {
+            self::$renderer = $this->page->get_renderer('filter_tabs');
         }
 
         $config = config::create(get_config('filter_tabs'));
         $tabs = tab::from_matches($matches);
 
-        return $this->renderer->render(new renderable($config->get_template(), $tabs));
+        return self::$renderer->render(new renderable($config->get_template(), $tabs));
     }
 }
