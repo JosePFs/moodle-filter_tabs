@@ -40,7 +40,7 @@ class filter_tabs extends moodle_text_filter {
      *
      * @var moodle_page $page.
      */
-    public moodle_page $page;
+    private moodle_page $page;
 
     /**
      * Plugin renderer.
