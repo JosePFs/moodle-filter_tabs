@@ -1,0 +1,57 @@
+.filter-tabs-bootstrap {
+  .nav {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    padding: 0;
+    margin: 0 0 5px 0;
+    list-style: none;
+  }
+
+  .nav-tabs {
+    border-bottom: 1px solid #dee2e6;
+    margin-top: 0;
+
+    .nav-link {
+      display: block;
+      padding: 0.5rem 1rem;
+      border-top-left-radius: 0.25rem;
+      border-top-right-radius: 0.25rem;
+      background-color: transparent;
+      border: 1px solid;
+      border-color: #dee2e6 #dee2e6 #fff;
+      text-decoration: none;
+    }
+
+    .nav-link.active {
+      background-color: #fff;
+      color: #495057;
+    }
+
+    .nav-item {
+      margin-bottom: -1px;
+      @media (max-width: 767px) {
+        width: 100%;
+      }
+    }
+  }
+
+  .tab-content > .tab-pane {
+    display: none;
+  }
+
+  .tab-content > .active {
+    display: block;
+  }
+
+  .fade.show {
+    opacity: 1;
+  }
+
+  .fade {
+    opacity: 0;
+    transition: opacity 0.15s linear;
+  }
+}

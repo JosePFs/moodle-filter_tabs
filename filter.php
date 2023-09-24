@@ -57,7 +57,14 @@ class filter_tabs extends moodle_text_filter {
      */
     public function setup($page, $context) {
         $this->page = $page;
-        $page->requires->js_call_amd('filter_tabs/tabs', 'init');
+
+        static $initialised = false;
+
+        if(!$initialised){
+            $page->requires->js_call_amd('filter_tabs/tabs', 'init');
+            $initialised = true;
+        }
+
     }
 
     /**
