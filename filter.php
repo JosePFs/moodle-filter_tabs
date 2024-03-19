@@ -36,13 +36,6 @@ class filter_tabs extends moodle_text_filter {
     const PLACEHOLDER_PATTERN = '/\{%:([^}]*)\}(.*?)\{%\}/s';
 
     /**
-     * Page.
-     *
-     * @var moodle_page $page.
-     */
-    private $page;
-
-    /**
      * Plugin renderer.
      *
      * @var renderer $renderer.
@@ -56,8 +49,9 @@ class filter_tabs extends moodle_text_filter {
      * @param context $context The current context.
      */
     public function setup($page, $context) {
-        $this->page = $page;
-        $page->requires->js_call_amd('filter_tabs/tabs', 'init');
+        if ($page->requires->should_create_one_time_item_now('filter_tabs/setup')) {
+            $page->requires->js_call_amd('filter_tabs/tabs', 'init');
+        }
     }
 
     /**
@@ -112,8 +106,10 @@ class filter_tabs extends moodle_text_filter {
      * @return string
      */
     private function generate_tabs(array $matches) {
+        global $PAGE;
+
         if ($this->renderer === null) {
-            $this->renderer = $this->page->get_renderer('filter_tabs');
+            $this->renderer = $PAGE->get_renderer('filter_tabs');
         }
 
         $config = config::create(get_config('filter_tabs'));
