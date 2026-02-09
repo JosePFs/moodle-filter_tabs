@@ -2,6 +2,10 @@
 
 ## Changes
 
+### 4.2.0 - 4.5.1
+
+- 2026-02-09 - No changes
+
 ### 4.1.1
 
 - 2026-02-09 - Fix mustache title
