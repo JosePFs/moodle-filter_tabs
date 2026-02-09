@@ -26,15 +26,16 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['filtername'] = 'Tabs';
-$string['pluginname'] = 'Tabs';
 $string['bootstrapheading'] = 'Bootstrap';
-$string['selecttabs'] = 'Select tabs type';
-$string['selecttabs_desc'] = 'Select Bootstrap 2 or Bootstrap 4 tabs for use with Bootstrap based themes, or legacy YUI tabs.';
-$string['enableyui'] = 'Enable legacy YUI tabs';
 $string['enablebootstrap2'] = 'Enable Bootstrap 2 tabs for use with Bootstrap 2 based themes';
 $string['enablebootstrap4'] = 'Enable Bootstrap 4 tabs for use with Bootstrap 4 based themes';
-$string['selecttabs_hint'] = 'Bootstrap version used by the current theme';
-$string['suggestedoption'] = 'Suggested option';
+$string['enablebootstrap5'] = 'Enable Bootstrap 5 tabs for use with Bootstrap 5 based themes';
+$string['enableyui'] = 'Enable legacy YUI tabs';
+$string['filtername'] = 'Tabs';
+$string['pluginname'] = 'Tabs';
 $string['previewheading'] = 'Preview';
 $string['privacy:metadata'] = 'The tabs filter does not store any personal data.';
+$string['selecttabs'] = 'Select tabs type';
+$string['selecttabs_desc'] = 'Select Bootstrap 2, 4 or 5 tabs for use with Bootstrap based themes, or legacy YUI tabs.';
+$string['selecttabs_hint'] = 'Bootstrap version used by the current theme';
+$string['suggestedoption'] = 'Suggested option';

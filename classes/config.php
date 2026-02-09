@@ -20,24 +20,29 @@ namespace filter_tabs;
  * Tab type that contains config options
  *
  * @package    filter_tabs
- * @copyright  2022 José Puente <jpuentefs@gmail.com>
+ * @copyright  2026 José Puente <jpuentefs@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class config {
     /**
      * Legacy YUI tabs.
      */
-    public const YUI_TABS = "0";
+    public const YUI_TABS = 0;
 
     /**
      * Bootstrap version 2 tabs.
      */
-    public const BOOTSTRAP_2_TABS = "1";
+    public const BOOTSTRAP_2_TABS = 2;
 
     /**
      * Bootstrap version 4 tabs.
      */
-    public const BOOTSTRAP_4_TABS = "2";
+    public const BOOTSTRAP_4_TABS = 4;
+
+    /**
+     * Bootstrap version 5 tabs.
+     */
+    public const BOOTSTRAP_5_TABS = 5;
 
     /**
      * Templates filename mapping.
@@ -45,9 +50,22 @@ class config {
      * @var array
      */
     private const TEMPLATES = [
-        self::YUI_TABS => "filter_tabs/yui",
-        self::BOOTSTRAP_2_TABS => "filter_tabs/bootstrap2",
-        self::BOOTSTRAP_4_TABS => "filter_tabs/bootstrap4",
+        self::YUI_TABS => [
+            'template' => 'filter_tabs/yui',
+            'version'  => null,
+        ],
+        self::BOOTSTRAP_2_TABS => [
+            'template' => 'filter_tabs/bootstrap2',
+            'version'  => self::BOOTSTRAP_2_TABS,
+        ],
+        self::BOOTSTRAP_4_TABS => [
+            'template' => 'filter_tabs/bootstrap4',
+            'version'  => self::BOOTSTRAP_4_TABS,
+        ],
+        self::BOOTSTRAP_5_TABS => [
+            'template' => 'filter_tabs/bootstrap5',
+            'version'  => self::BOOTSTRAP_5_TABS,
+        ],
     ];
 
     /**
@@ -71,10 +89,18 @@ class config {
      * @return config
      */
     public static function create(\stdClass $filtertabsconfig): config {
-        $type = isset($filtertabsconfig->enablebootstrap)
-                ? $filtertabsconfig->enablebootstrap
-                : self::BOOTSTRAP_4_TABS;
-        return new config(self::TEMPLATES[$type]);
+        $templateconfig = self::TEMPLATES[self::BOOTSTRAP_5_TABS];
+
+        if (!empty($filtertabsconfig->enablebootstrap)) {
+            foreach (self::TEMPLATES as $config) {
+                if ($config['version'] === $filtertabsconfig->enablebootstrap) {
+                    $templateconfig = $config;
+                    break;
+                }
+            }
+        }
+
+        return new config($templateconfig['template']);
     }
 
     /**
@@ -82,7 +108,7 @@ class config {
      *
      * @return string
      */
-    public function get_template() {
+    public function get_template(): string {
         return $this->template;
     }
 }

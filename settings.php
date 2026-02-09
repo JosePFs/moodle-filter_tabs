@@ -25,10 +25,14 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+use filter_tabs\config;
+use filter_tabs\helper;
+use filter_tabs\text_filter;
+
 if ($ADMIN->fulltree) {
     global $CFG, $PAGE;
 
-    require_once($CFG->dirroot . '/filter/tabs/filter.php');
+    require_once($CFG->dirroot . '/filter/tabs/classes/text_filter.php');
 
     /** @var admin_settingpage $settings */
     $settings->add(new admin_setting_heading(
@@ -38,34 +42,41 @@ if ($ADMIN->fulltree) {
     ));
 
     $tabsconfigsoptions = [
-        \filter_tabs\config::YUI_TABS => get_string('enableyui', 'filter_tabs', null, true),
-        \filter_tabs\config::BOOTSTRAP_2_TABS => get_string('enablebootstrap2', 'filter_tabs', null, true),
-        \filter_tabs\config::BOOTSTRAP_4_TABS => get_string('enablebootstrap4', 'filter_tabs', null, true),
+        config::YUI_TABS => get_string('enableyui', 'filter_tabs', null, true),
+        config::BOOTSTRAP_2_TABS => get_string('enablebootstrap2', 'filter_tabs', null, true),
+        config::BOOTSTRAP_4_TABS => get_string('enablebootstrap4', 'filter_tabs', null, true),
+        config::BOOTSTRAP_5_TABS => get_string('enablebootstrap5', 'filter_tabs', null, true),
         ];
 
-    if (($bootstrapversion = \filter_tabs\helper::get_bootstrap_version())) {
-        $version = substr($bootstrapversion, 0, 1);
+    if (($bootstrapversion = helper::get_bootstrap_version())) {
+        $version = (int) substr($bootstrapversion, 0, 1);
     }
 
     $settings->add(new admin_setting_configselect(
         'filter_tabs/enablebootstrap',
         get_string('selecttabs', 'filter_tabs', null, true),
         get_string('selecttabs_desc', 'filter_tabs', null, true),
-        '4' === $version ? \filter_tabs\config::BOOTSTRAP_4_TABS : \filter_tabs\config::BOOTSTRAP_2_TABS,
+        $version ?? config::BOOTSTRAP_5_TABS,
         $tabsconfigsoptions
     ));
 
     if ($bootstrapversion) {
         $suggestedoption = '';
-        if ($version !== '4') {
+        if ($version === config::BOOTSTRAP_5_TABS) {
             $suggestedoption .= '<br /><small>' . get_string('suggestedoption', 'filter_tabs', null, true) .
-                                ": [ \"{$tabsconfigsoptions[\filter_tabs\config::BOOTSTRAP_2_TABS]}\" ]</small>";
+                                ": [ \"{$tabsconfigsoptions[config::BOOTSTRAP_5_TABS]}\" ]</small>";
+        } else if ($version === config::BOOTSTRAP_4_TABS) {
+            $suggestedoption .= '<br /><small>' . get_string('suggestedoption', 'filter_tabs', null, true) .
+                                ": [ \"{$tabsconfigsoptions[config::BOOTSTRAP_4_TABS]}\" ]</small>";
+        } else if ($version === config::BOOTSTRAP_2_TABS) {
+            $suggestedoption .= '<br /><small>' . get_string('suggestedoption', 'filter_tabs', null, true) .
+                                ": [ \"{$tabsconfigsoptions[config::BOOTSTRAP_2_TABS]}\" ]</small>";
         } else {
-            $suggestedoption .= '<br /><small>' . get_string('suggestedoption', 'filter_tabs', null, true) .
-                                ": [ \"{$tabsconfigsoptions[\filter_tabs\config::BOOTSTRAP_4_TABS]}\" ]</small>";
+             $suggestedoption .= '<br /><small>' . get_string('suggestedoption', 'filter_tabs', null, true) .
+                                 ": [ \"{$tabsconfigsoptions[config::YUI_TABS]}\" ]</small>";
         }
 
-        // Bootstrap suggestion.
+        // Bootstrap or YUI suggestion.
         $settings->add(new admin_setting_heading(
             'filter_tabs_bootstrap_version_header',
             get_string('selecttabs_hint', 'filter_tabs'),
@@ -74,7 +85,7 @@ if ($ADMIN->fulltree) {
 
         // Preview.
         $context = context_system::instance();
-        $filtertabs = new filter_tabs($context, []);
+        $filtertabs = new text_filter($context, []);
         $filtertabs->setup($PAGE, $context);
         $tabsfilteredtext = $filtertabs->filter('{%:First tab}Some text{%}{%:Second tab}Another text{%}');
         $settings->add(new admin_setting_heading(

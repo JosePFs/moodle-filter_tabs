@@ -2,7 +2,12 @@
 
 ## Changes
 
-### 4.2.0 - 4.5.1
+### 5.0.0
+
+- 2026-02-09 - Adds boostrap 5 template support
+- 2026-02-09 - Refact classes to use new core classes
+
+### 4.2.0 - 4.5.0
 
 - 2026-02-09 - No changes
 

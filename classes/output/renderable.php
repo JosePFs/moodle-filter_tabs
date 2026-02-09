@@ -16,6 +16,10 @@
 
 namespace filter_tabs\output;
 
+use core\output\renderer_base;
+use core\output\renderable as core_renderable;
+use core\output\templatable as core_templatable;
+
 /**
  * Renderable tabs.
  *
@@ -23,7 +27,7 @@ namespace filter_tabs\output;
  * @copyright  2022 José Puente <jpuentefs@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class renderable implements \renderable, \templatable {
+class renderable implements core_renderable, core_templatable {
     /**
      * Template filename.
      *
@@ -61,11 +65,11 @@ class renderable implements \renderable, \templatable {
     /**
      * Export data for template.
      *
-     * @param \renderer_base $renderer
+     * @param renderer $renderer
      *
      * @return array
      */
-    public function export_for_template(\renderer_base $renderer) {
+    public function export_for_template(renderer_base $renderer): array {
         return [
             'tabgroupcounter' => renderer::get_group_counter(),
             'tabs' => $this->tabs,

@@ -16,6 +16,8 @@
 
 namespace filter_tabs\output;
 
+use core\output\plugin_renderer_base;
+
 /**
  * Renderer for filter tabs.
  *
@@ -23,7 +25,7 @@ namespace filter_tabs\output;
  * @copyright  2022 José Puente <jpuentefs@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class renderer extends \plugin_renderer_base {
+class renderer extends plugin_renderer_base {
     /**
      * This was implemented with a random number previously, but was changed to a static counter for performance reasons.
      *

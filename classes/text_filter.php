@@ -14,6 +14,9 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+namespace filter_tabs;
+
+use core_filters\text_filter as core_text_filter;
 use filter_tabs\config;
 use filter_tabs\output\renderable;
 use filter_tabs\output\renderer;
@@ -28,7 +31,7 @@ use filter_tabs\tab;
  *             2017 José Puente <jpuentefs@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class filter_tabs extends moodle_text_filter {
+class text_filter extends core_text_filter {
     /**
      * Placeholder for tabs.
      */

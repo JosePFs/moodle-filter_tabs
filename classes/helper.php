@@ -34,12 +34,12 @@ class helper {
      *
      * @return boolean|string Version or false if not found.
      */
-    public static function get_bootstrap_version() {
+    public static function get_bootstrap_version(): string|false {
         global $PAGE, $CFG;
 
-        $themedir = isset($CFG->themedir) ? $CFG->themedir : null;
-
-        $currentthemedir = $themedir ?: $PAGE->theme->dir;
+        $themedir = $CFG->themedir ?? null;
+        debugging($themedir);
+        $currentthemedir = $themedir ?? $PAGE->theme->dir;
         if (($version = self::get_version_from_xml_file("{$currentthemedir}/thirdpartylibs.xml"))) {
             return $version;
         }
@@ -59,7 +59,7 @@ class helper {
      * @param string $path
      * @return boolean|string Version or false if not found.
      */
-    private static function get_version_from_xml_file($path) {
+    private static function get_version_from_xml_file(string $path): string|false {
         if (!file_exists($path)) {
             return false;
         }

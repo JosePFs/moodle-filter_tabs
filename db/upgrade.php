@@ -22,10 +22,8 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-/**
- * Boostrap version used by new themes based on Boots (for example).
- */
-define('BOOTSTRAP_4_VERSION', '4');
+use filter_tabs\config;
+use filter_tabs\helper;
 
 /**
  * Tasks to do when plugin version is upgraded
@@ -35,20 +33,23 @@ define('BOOTSTRAP_4_VERSION', '4');
  */
 function xmldb_filter_tabs_upgrade($oldversion) {
 
-    // Moodle v3.2.0 release upgrade line.
+    // Moodle v5.0.0 release upgrade line.
     // Put any upgrade step following this.
-    if ($oldversion < 2017072700) {
-        global $CFG;
-        require_once($CFG->dirroot . '/filter/tabs/filter.php');
-        require_once($CFG->dirroot . '/filter/tabs/classes/helper.php');
-
-        if (($bootsrapversion = filter_tabs_helper::get_bootstrap_version())) {
-            if (substr($bootsrapversion, 0, 1) === BOOTSTRAP_4_VERSION) {
-                set_config('enablebootstrap', filter_tabs::BOOTSTRAP_4_TABS, 'filter_tabs');
+    if ($oldversion < 2026020905) {
+        if (($bootsrapversion = helper::get_bootstrap_version())) {
+            $majorbootstrapversion = substr($bootsrapversion, 0, 1);
+            if ($majorbootstrapversion === '5') {
+                set_config('enablebootstrap', config::BOOTSTRAP_5_TABS, 'filter_tabs');
+            } else if ($majorbootstrapversion === '4') {
+                set_config('enablebootstrap', config::BOOTSTRAP_4_TABS, 'filter_tabs');
+            } else if ($majorbootstrapversion === '2') {
+                set_config('enablebootstrap', config::BOOTSTRAP_2_TABS, 'filter_tabs');
+            } else {
+                set_config('enablebootstrap', config::YUI_TABS, 'filter_tabs');
             }
         }
 
-        upgrade_plugin_savepoint(true, 2017072700, 'filter', 'tabs');
+        upgrade_plugin_savepoint(true, 2026020905, 'filter', 'tabs');
     }
 
     return true;

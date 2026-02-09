@@ -25,6 +25,26 @@ namespace filter_tabs;
  */
 class tab {
     /**
+     * Active tab
+     */
+    private const ACTIVE_CLASS = "active";
+
+    /**
+     * Active tab
+     */
+    private const SHOW_CLASS = "show";
+
+    /**
+     * Inactive tab
+     */
+    private const INACTIVE_CLASS = "";
+
+    /**
+     * Default active tab
+     */
+    private const DEFAULT_ACTIVE = 0;
+
+    /**
      * Title
      *
      * @var string $title
@@ -50,7 +70,7 @@ class tab {
      *
      * @var string $active
      */
-    private $active = "";
+    private $activeclasses = "";
 
     /**
      * Private Tab constructor
@@ -60,11 +80,11 @@ class tab {
      * @param int $key
      * @param string $active
      */
-    private function __construct(string $title, string $content, int $key, string $active) {
+    private function __construct(string $title, string $content, int $key, string $activeclasses) {
         $this->title = $title;
         $this->content = $content;
         $this->key = $key;
-        $this->active = $active;
+        $this->activeclasses = $activeclasses;
     }
 
     /**
@@ -77,8 +97,8 @@ class tab {
      *
      * @return tab
      */
-    private static function create(string $title, string $content, int $key, string $active) {
-        return new tab($title, $content, $key, $active);
+    private static function create(string $title, string $content, int $key, string $activeclasses): tab {
+        return new tab($title, $content, $key, $activeclasses);
     }
 
     /**
@@ -88,9 +108,14 @@ class tab {
      *
      * @return array
      */
-    public static function from_matches(array $matches) {
+    public static function from_matches(array $matches): array {
         return array_map(function ($match, $key) {
-            return static::create($match[1][0], $match[2][0], $key + 1, $key === 0 ? "active" : "");
+            return static::create(
+                $match[1][0],
+                $match[2][0],
+                $key + 1,
+                $key === self::DEFAULT_ACTIVE ? self::ACTIVE_CLASS : self::INACTIVE_CLASS
+            );
         }, $matches, array_keys($matches));
     }
 
@@ -99,7 +124,7 @@ class tab {
      *
      * @return string
      */
-    public function get_title() {
+    public function get_title(): string {
         return $this->title;
     }
 
@@ -108,7 +133,7 @@ class tab {
      *
      * @return string
      */
-    public function get_content() {
+    public function get_content(): string {
         return $this->content;
     }
 
@@ -117,16 +142,26 @@ class tab {
      *
      * @return int
      */
-    public function get_key() {
+    public function get_key(): int {
         return $this->key;
     }
 
+
     /**
-     * Get active
+     * Get active classes
      *
      * @return string
      */
-    public function get_active() {
-        return $this->active;
+    public function get_title_classes(): string {
+        return $this->activeclasses;
+    }
+
+    /**
+     * Get active content classes
+     *
+     * @return string
+     */
+    public function get_content_classes(): string {
+        return $this->activeclasses === self::ACTIVE_CLASS ? self::ACTIVE_CLASS . " " . self::SHOW_CLASS : $this->activeclasses;
     }
 }
