@@ -24,11 +24,10 @@ namespace filter_tabs\output;
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class renderer extends \plugin_renderer_base {
-
     /**
      * This was implemented with a random number previously, but was changed to a static counter for performance reasons.
      *
-     * @var integer Counter for tabgroups
+     * @var int Counter for tabgroups
      */
     private static $tabgroupcounter = 0;
 

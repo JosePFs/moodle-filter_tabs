@@ -32,28 +32,28 @@ if ($ADMIN->fulltree) {
 
     // Appearance.
     $settings->add(new admin_setting_heading(
-                'filter_tabs/bootstrapheading',
-                get_string('bootstrapheading', 'filter_tabs', null, true),
-                '')
-            );
+        'filter_tabs/bootstrapheading',
+        get_string('bootstrapheading', 'filter_tabs', null, true),
+        ''
+    ));
 
-    $tabsconfigsoptions = array(
+    $tabsconfigsoptions = [
         \filter_tabs\config::YUI_TABS => get_string('enableyui', 'filter_tabs', null, true),
         \filter_tabs\config::BOOTSTRAP_2_TABS => get_string('enablebootstrap2', 'filter_tabs', null, true),
-        \filter_tabs\config::BOOTSTRAP_4_TABS => get_string('enablebootstrap4', 'filter_tabs', null, true)
-        );
+        \filter_tabs\config::BOOTSTRAP_4_TABS => get_string('enablebootstrap4', 'filter_tabs', null, true),
+        ];
 
     if (($bootstrapversion = \filter_tabs\helper::get_bootstrap_version())) {
         $version = substr($bootstrapversion, 0, 1);
     }
 
     $settings->add(new admin_setting_configselect(
-                'filter_tabs/enablebootstrap',
-                get_string('selecttabs', 'filter_tabs', null, true),
-                get_string('selecttabs_desc', 'filter_tabs', null, true),
-                '4' === $version ? \filter_tabs\config::BOOTSTRAP_4_TABS : \filter_tabs\config::BOOTSTRAP_2_TABS,
-                $tabsconfigsoptions)
-            );
+        'filter_tabs/enablebootstrap',
+        get_string('selecttabs', 'filter_tabs', null, true),
+        get_string('selecttabs_desc', 'filter_tabs', null, true),
+        '4' === $version ? \filter_tabs\config::BOOTSTRAP_4_TABS : \filter_tabs\config::BOOTSTRAP_2_TABS,
+        $tabsconfigsoptions
+    ));
 
     if ($bootstrapversion) {
         $suggestedoption = '';
@@ -67,20 +67,20 @@ if ($ADMIN->fulltree) {
 
         // Bootstrap suggestion.
         $settings->add(new admin_setting_heading(
-                'filter_tabs_bootstrap_version_header',
-                get_string('selecttabs_hint', 'filter_tabs'),
-                $bootstrapversion . $suggestedoption)
-            );
+            'filter_tabs_bootstrap_version_header',
+            get_string('selecttabs_hint', 'filter_tabs'),
+            $bootstrapversion . $suggestedoption
+        ));
 
         // Preview.
         $context = context_system::instance();
-        $filtertabs = new filter_tabs($context, array());
+        $filtertabs = new filter_tabs($context, []);
         $filtertabs->setup($PAGE, $context);
         $tabsfilteredtext = $filtertabs->filter('{%:First tab}Some text{%}{%:Second tab}Another text{%}');
         $settings->add(new admin_setting_heading(
-                'filter_tabs_preview_header',
-                get_string('previewheading', 'filter_tabs'),
-                trim(preg_replace('/\s\s+/', ' ', $tabsfilteredtext)))
-            );
+            'filter_tabs_preview_header',
+            get_string('previewheading', 'filter_tabs'),
+            trim(preg_replace('/\s\s+/', ' ', $tabsfilteredtext))
+        ));
     }
 }

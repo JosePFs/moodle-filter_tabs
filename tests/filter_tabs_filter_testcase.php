@@ -33,11 +33,10 @@ use filter_tabs\config;
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class filter_tabs_filter_testcase extends advanced_testcase {
-
     /**
      * Tests setup
      */
-    public function setUp() : void {
+    public function setUp(): void {
         parent::setUp();
 
         $this->resetAfterTest(true);

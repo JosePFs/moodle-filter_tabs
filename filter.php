@@ -29,11 +29,18 @@ use filter_tabs\tab;
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class filter_tabs extends moodle_text_filter {
-
     /**
      * Placeholder for tabs.
      */
-    const PLACEHOLDER_PATTERN = '/\{%:([^}]*)\}(.*?)\{%\}/s';
+    private const PLACEHOLDER_PATTERN = '/\{%:([^}]*)\}(.*?)\{%\}/s';
+
+    /**
+     * JS initialised.
+     *
+     * @var bool $jsinitialised.
+     */
+    private static $jsinitialised = false;
+
 
     /**
      * Page.
@@ -57,7 +64,11 @@ class filter_tabs extends moodle_text_filter {
      */
     public function setup($page, $context) {
         $this->page = $page;
-        $page->requires->js_call_amd('filter_tabs/tabs', 'init');
+
+        if (!self::$jsinitialised) {
+            $this->page->requires->js_call_amd('filter_tabs/tabs', 'init');
+            self::$jsinitialised = true;
+        }
     }
 
     /**
@@ -66,7 +77,7 @@ class filter_tabs extends moodle_text_filter {
      * @param string $text The text to filter.
      * @param array $options The filter options.
      */
-    public function filter($text, array $options = array() ) {
+    public function filter($text, array $options = []) {
         if (!($matches = $this->get_matches($text))) {
             return $text;
         }
@@ -81,8 +92,10 @@ class filter_tabs extends moodle_text_filter {
      * @return null|array
      */
     private function get_matches(string $text) {
-        if (!is_string($text) || empty($text) || strpos($text, '{%') === false ||
-            !preg_match_all(self::PLACEHOLDER_PATTERN, $text, $matches, PREG_SET_ORDER | PREG_OFFSET_CAPTURE)) {
+        if (
+            !is_string($text) || empty($text) || strpos($text, '{%') === false ||
+            !preg_match_all(self::PLACEHOLDER_PATTERN, $text, $matches, PREG_SET_ORDER | PREG_OFFSET_CAPTURE)
+        ) {
             return null;
         }
         return $matches;
@@ -101,7 +114,6 @@ class filter_tabs extends moodle_text_filter {
         $text = preg_replace(self::PLACEHOLDER_PATTERN, "", $textbefore)
                 . $this->generate_tabs($matches) .
                 preg_replace(self::PLACEHOLDER_PATTERN, "", $textafter);
-
         return $text;
     }
 

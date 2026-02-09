@@ -24,7 +24,6 @@ namespace filter_tabs;
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class config {
-
     /**
      * Legacy YUI tabs.
      */
@@ -69,9 +68,9 @@ class config {
      * Creates config plugin.
      *
      * @param \stdClass $filtertabsconfig
-     * @return bool
+     * @return config
      */
-    public static function create(\stdClass $filtertabsconfig) {
+    public static function create(\stdClass $filtertabsconfig): config {
         $type = isset($filtertabsconfig->enablebootstrap)
                 ? $filtertabsconfig->enablebootstrap
                 : self::BOOTSTRAP_4_TABS;
