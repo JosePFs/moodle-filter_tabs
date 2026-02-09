@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="filter_tabs">
+    <description>Moodle filter_tabs plugin</description>
+
+    <rule ref="moodle-extra"/>
+
+    <config name="testVersion" value="8.0-8.2"/>
+
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+    <exclude-pattern>*/node_modules/*</exclude-pattern>
+</ruleset>

@@ -27,24 +27,24 @@ class config {
     /**
      * Legacy YUI tabs.
      */
-    const YUI_TABS = "0";
+    public const YUI_TABS = "0";
 
     /**
      * Bootstrap version 2 tabs.
      */
-    const BOOTSTRAP_2_TABS = "1";
+    public const BOOTSTRAP_2_TABS = "1";
 
     /**
      * Bootstrap version 4 tabs.
      */
-    const BOOTSTRAP_4_TABS = "2";
+    public const BOOTSTRAP_4_TABS = "2";
 
     /**
      * Templates filename mapping.
      *
      * @var array
      */
-    const TEMPLATES = [
+    private const TEMPLATES = [
         self::YUI_TABS => "filter_tabs/yui",
         self::BOOTSTRAP_2_TABS => "filter_tabs/bootstrap2",
         self::BOOTSTRAP_4_TABS => "filter_tabs/bootstrap4",

@@ -30,7 +30,7 @@ if ($ADMIN->fulltree) {
 
     require_once($CFG->dirroot . '/filter/tabs/filter.php');
 
-    // Appearance.
+    /** @var admin_settingpage $settings */
     $settings->add(new admin_setting_heading(
         'filter_tabs/bootstrapheading',
         get_string('bootstrapheading', 'filter_tabs', null, true),

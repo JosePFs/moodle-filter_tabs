@@ -27,7 +27,7 @@ class helper {
     /**
      * Bootstraps's string in thirdpartylibs file.
      */
-    const BOOTSTRAP_DEFINITION = 'Twitter Bootstrap';
+    private const BOOTSTRAP_DEFINITION = 'Twitter Bootstrap';
 
     /**
      * Get Bootstrap version of the current theme and its parents.
