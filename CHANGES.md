@@ -2,6 +2,10 @@
 
 ## Changes
 
+### 5.0.2
+
+- 2026-02-09 - Adds ionic tabs for mobile app
+
 ### 5.0.0
 
 - 2026-02-09 - Adds boostrap 5 template support
