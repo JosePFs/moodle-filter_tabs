@@ -16,6 +16,8 @@
 
 namespace filter_tabs;
 
+use core_useragent;
+
 /**
  * Tab type that contains config options
  *
@@ -28,6 +30,11 @@ class config {
      * Legacy YUI tabs.
      */
     public const YUI_TABS = 0;
+
+    /**
+     * Mobileapp tabs.
+     */
+    public const MOBILEAPP_TABS = 1;
 
     /**
      * Bootstrap version 2 tabs.
@@ -53,6 +60,10 @@ class config {
         self::YUI_TABS => [
             'template' => 'filter_tabs/yui',
             'version'  => null,
+        ],
+        self::MOBILEAPP_TABS => [
+            'template' => 'filter_tabs/mobileapp',
+            'version'  => self::MOBILEAPP_TABS,
         ],
         self::BOOTSTRAP_2_TABS => [
             'template' => 'filter_tabs/bootstrap2',
@@ -89,8 +100,11 @@ class config {
      * @return config
      */
     public static function create(\stdClass $filtertabsconfig): config {
-        $templateconfig = self::TEMPLATES[self::BOOTSTRAP_5_TABS];
+        if (core_useragent::is_moodle_app()) {
+            return new config(self::TEMPLATES[self::MOBILEAPP_TABS]['template']);
+        }
 
+        $templateconfig = self::TEMPLATES[self::BOOTSTRAP_5_TABS];
         if (!empty($filtertabsconfig->enablebootstrap)) {
             foreach (self::TEMPLATES as $config) {
                 if ($config['version'] === $filtertabsconfig->enablebootstrap) {

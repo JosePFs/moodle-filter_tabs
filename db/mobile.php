@@ -15,18 +15,22 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Filter "tabs" - Version file
+ * Tabs filter mobile code.
  *
  * @package    filter_tabs
- * @copyright  2014 Alexander Bias, Ulm University <alexander.bias@uni-ulm.de> /
- *             2017 José Puente <jpuentefs@gmail.com>
+ * @copyright  2026 José Puente <jpuentefs@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->component = 'filter_tabs';
-$plugin->version = 2026020952;
-$plugin->release = '5.0.2';
-$plugin->requires = 2025041405;
-$plugin->maturity = MATURITY_STABLE;
+$addons = [
+    'filter_tabs' => [
+        'handlers' => [
+            'tabs' => [
+                'delegate' => '', // The JS code will register the handler.
+                'init' => 'mobile_init',
+            ],
+        ],
+    ],
+];

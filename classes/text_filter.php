@@ -38,14 +38,6 @@ class text_filter extends core_text_filter {
     private const PLACEHOLDER_PATTERN = '/\{%:([^}]*)\}(.*?)\{%\}/s';
 
     /**
-     * JS initialised.
-     *
-     * @var bool $jsinitialised.
-     */
-    private static $jsinitialised = false;
-
-
-    /**
      * Page.
      *
      * @var moodle_page $page.
@@ -68,9 +60,8 @@ class text_filter extends core_text_filter {
     public function setup($page, $context) {
         $this->page = $page;
 
-        if (!self::$jsinitialised) {
+        if ($this->page->requires->should_create_one_time_item_now('filter_tabs_amd_init')) {
             $this->page->requires->js_call_amd('filter_tabs/tabs', 'init');
-            self::$jsinitialised = true;
         }
     }
 

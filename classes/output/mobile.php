@@ -14,19 +14,32 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+namespace filter_tabs\output;
+
 /**
- * Filter "tabs" - Version file
+ * Renderable tabs.
  *
  * @package    filter_tabs
- * @copyright  2014 Alexander Bias, Ulm University <alexander.bias@uni-ulm.de> /
- *             2017 José Puente <jpuentefs@gmail.com>
+ * @copyright  2022 José Puente <jpuentefs@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+class mobile {
+    /**
+     * Initialization function for filter_tabs in Moodle Mobile.
+     *
+     * @param  array $args Arguments from tool_mobile_get_content WS
+     * @return array Templates and javascript
+     */
+    public static function mobile_init($args): array|null {
+        global $CFG;
 
-defined('MOODLE_INTERNAL') || die();
+        if (!filter_is_enabled('tabs')) {
+            return null;
+        }
 
-$plugin->component = 'filter_tabs';
-$plugin->version = 2026020952;
-$plugin->release = '5.0.2';
-$plugin->requires = 2025041405;
-$plugin->maturity = MATURITY_STABLE;
+        return [
+            'templates' => [],
+            'javascript' => file_get_contents($CFG->dirroot . '/filter/tabs/mobileapp/init.js'),
+        ];
+    }
+}
