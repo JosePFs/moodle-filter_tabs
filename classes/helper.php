@@ -38,7 +38,6 @@ class helper {
         global $PAGE, $CFG;
 
         $themedir = $CFG->themedir ?? null;
-        debugging($themedir);
         $currentthemedir = $themedir ?? $PAGE->theme->dir;
         if (($version = self::get_version_from_xml_file("{$currentthemedir}/thirdpartylibs.xml"))) {
             return $version;

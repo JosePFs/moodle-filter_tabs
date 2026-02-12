@@ -59,7 +59,7 @@ class config {
     private const TEMPLATES = [
         self::YUI_TABS => [
             'template' => 'filter_tabs/yui',
-            'version'  => null,
+            'version'  => self::YUI_TABS,
         ],
         self::MOBILEAPP_TABS => [
             'template' => 'filter_tabs/mobileapp',
@@ -104,15 +104,7 @@ class config {
             return new config(self::TEMPLATES[self::MOBILEAPP_TABS]['template']);
         }
 
-        $templateconfig = self::TEMPLATES[self::BOOTSTRAP_5_TABS];
-        if (!empty($filtertabsconfig->enablebootstrap)) {
-            foreach (self::TEMPLATES as $config) {
-                if ($config['version'] === $filtertabsconfig->enablebootstrap) {
-                    $templateconfig = $config;
-                    break;
-                }
-            }
-        }
+        $templateconfig = self::TEMPLATES[(int) $filtertabsconfig->enablebootstrap];
 
         return new config($templateconfig['template']);
     }

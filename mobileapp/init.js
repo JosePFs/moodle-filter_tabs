@@ -20,33 +20,28 @@
  * @copyright  2026 José Puente <jpuentefs@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-const context = this;
-
 class AddonTabsFilterHandler {
 
     constructor() {
         this.name = 'AddonTabsFilterHandler';
         this.filterName = 'tabs';
-        this.timeoutId = 0;
     }
 
     isEnabled() {
         return true;
     }
 
-    shouldBeApplied(options, site) {
-        return !!(site && site.getId() === context.CoreSitesProvider.getCurrentSiteId());
+    shouldBeApplied() {
+        return true;
     }
 
-    filter(text, filter, options, siteId) {
+    filter(text) {
         return text;
     }
 
-    handleHtml(container, filter, options, viewContainerRef, component, componentId, siteId) {
-        const segments = container.querySelectorAll('ion-segment');
-        segments.forEach(segment => {
-            segment.addEventListener('ionChange', (event) => {
+    handleHtml(container) {
+        container.querySelectorAll('.filter-tabs-mobileapp').forEach(tab => {
+            tab.addEventListener('ionChange', (event) => {
                 event.stopPropagation();
             });
         });

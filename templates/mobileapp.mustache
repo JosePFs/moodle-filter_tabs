@@ -14,26 +14,17 @@
 {{!
     @template filter_tabs/mobileapp
 
-    Template to display tabs using ionic.
+    Template to display tabs using ionic component.
 }}
-<div id="filter-tabs-tabgroup-{{tabgroupcounter}}" class="filter-tabs-mobileapp">
-    <ion-segment scrollable="true">
-        {{#tabs}}
-        <ion-segment-button 
-            value="filter-tabs-tab-{{tabgroupcounter}}-{{get_key}}" 
-            content-id="filter-tabs-content-{{tabgroupcounter}}-{{get_key}}">
-            <ion-label>{{{get_title}}}</ion-label>
-        </ion-segment-button>
-        {{/tabs}}
-    </ion-segment>
-
-    <ion-segment-view>
-        {{#tabs}}
-        <ion-segment-content id="filter-tabs-content-{{tabgroupcounter}}-{{get_key}}">
-            <div class="ion-padding">
-                {{{get_content}}}
-            </div>
-        </ion-segment-content>
-        {{/tabs}}
-    </ion-segment-view>
+<div class="filter-tabs-mobileapp">
+    <ion-accordion-group multiple="false">
+    {{# tabs }}
+        <ion-accordion value="filter-tabs-tab-{{tabgroupcounter}}-{{get_key}}">
+            <ion-item slot="header">
+                <ion-label>{{{ get_title }}}</ion-label>
+            </ion-item>
+            <div class="ion-padding" slot="content">{{{ get_content }}}</div>
+        </ion-accordion>
+    {{/ tabs }}
+    </ion-accordion-group>
 </div>

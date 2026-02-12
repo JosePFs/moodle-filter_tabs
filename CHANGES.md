@@ -2,6 +2,12 @@
 
 ## Changes
 
+### 5.0.3
+
+- 2026-02-12 - Changes ionic tabs for accodion
+- 2026-02-12 - Fixes settings selection
+- 2026-02-12 - Adds support for 4.5 version
+
 ### 5.0.2
 
 - 2026-02-09 - Adds ionic tabs for mobile app

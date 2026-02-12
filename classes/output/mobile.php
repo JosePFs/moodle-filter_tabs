@@ -17,7 +17,7 @@
 namespace filter_tabs\output;
 
 /**
- * Renderable tabs.
+ * Mobile output class for filter_tabs.
  *
  * @package    filter_tabs
  * @copyright  2022 José Puente <jpuentefs@gmail.com>

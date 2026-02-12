@@ -31,8 +31,8 @@
 <div id="filter-tabs-tabgroup-{{tabgroupcounter}}" class="filter-tabs-bootstrap boots-tabs">
     <ul id="filter-tabs-titlegroup-{{tabgroupcounter}}" class="nav nav-tabs d-print-none" role="tablist">
         {{#tabs}}
-            <li class="nav-item">
-                <a class="nav-link {{get_title_classes}}" id="filter-tabs-{{tabgroupcounter}}-{{get_key}}-tab" href="#filter-tabs-content-{{tabgroupcounter}}-{{get_key}}" data-toggle="tab" role="tab" aria-controls="filter-tabs-content-{{tabgroupcounter}}-{{get_key}}">{{{get_title}}}</a>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link {{get_title_classes}}" id="filter-tabs-{{tabgroupcounter}}-{{get_key}}-tab" href="#filter-tabs-content-{{tabgroupcounter}}-{{get_key}}" data-target="#filter-tabs-content-{{tabgroupcounter}}-{{get_key}}" data-toggle="tab" role="tab" aria-controls="filter-tabs-content-{{tabgroupcounter}}-{{get_key}}">{{{get_title}}}</a>
             </li>
         {{/tabs}}
     </ul>

@@ -24,12 +24,11 @@
 define(['jquery'], function($) {
     return {
         init: function() {
-            var url = document.URL;
-            var hash = url.substring(url.indexOf('#'));
+            var hash = document.URL.substring(document.URL.indexOf('#'));
             var timer = setInterval(initializeTabs, 0);
 
             /**
-             * Selects tab when hash is changed manually.
+             * Selects tab when hash has changed and is valid.
              *
              * @returns {undefined}
              */
@@ -47,8 +46,7 @@ define(['jquery'], function($) {
              * @returns {Boolean}
              */
             function isValidHash() {
-                return hash !== location.hash &&
-                        typeof $.fn.tab !== 'undefined' &&
+                return typeof $.fn.tab !== 'undefined' &&
                         $("a[href='" + location.hash + "']");
             }
 
