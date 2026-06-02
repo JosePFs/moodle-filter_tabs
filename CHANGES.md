@@ -2,6 +2,10 @@
 
 ## Changes
 
+### 5.0.4
+
+- 2026-06-02 - Fix phpunit setting warning
+
 ### 5.0.3
 
 - 2026-02-12 - Changes ionic tabs for accodion
