@@ -96,15 +96,14 @@ class config {
     /**
      * Creates config plugin.
      *
-     * @param \stdClass $filtertabsconfig
      * @return config
      */
-    public static function create(\stdClass $filtertabsconfig): config {
+    public static function create(): config {
         if (core_useragent::is_moodle_app()) {
             return new config(self::TEMPLATES[self::MOBILEAPP_TABS]['template']);
         }
 
-        $templateconfig = self::TEMPLATES[(int) $filtertabsconfig->enablebootstrap];
+        $templateconfig = self::get_template_config();
 
         return new config($templateconfig['template']);
     }
@@ -116,5 +115,27 @@ class config {
      */
     public function get_template(): string {
         return $this->template;
+    }
+
+    /**
+     * Gets template config.
+     *
+     * @return array
+     */
+    private static function get_template_config(): array {
+        $enablebootstrap = get_config('filter_tabs', 'enablebootstrap') ?? self::get_template_version();
+        return self::TEMPLATES[(int) $enablebootstrap];
+    }
+
+    /**
+     * Gets template version.
+     *
+     * @return int
+     */
+    private static function get_template_version(): int {
+        if (($bootstrapversion = helper::get_bootstrap_version())) {
+            $version = (int) substr($bootstrapversion, 0, 1);
+        }
+        return $version ?? self::BOOTSTRAP_5_TABS;
     }
 }

@@ -122,7 +122,7 @@ class text_filter extends core_text_filter {
             $this->renderer = $this->page->get_renderer('filter_tabs');
         }
 
-        $config = config::create(get_config('filter_tabs'));
+        $config = config::create();
         $tabs = tab::from_matches($matches);
 
         return $this->renderer->render(new renderable($config->get_template(), $tabs));

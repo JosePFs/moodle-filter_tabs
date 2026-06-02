@@ -23,6 +23,8 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+namespace filter_tabs;
+
 use filter_tabs\config;
 
 /**
@@ -31,8 +33,10 @@ use filter_tabs\config;
  * @package filter_tabs
  * @copyright 2017 José Puente
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @covers \filter_tabs\text_filter
+ * @covers \filter_tabs\config
  */
-class filter_tabs_filter_testcase extends advanced_testcase {
+final class filter_tabs_filter_test extends \advanced_testcase {
     /**
      * Tests setup
      */
@@ -42,14 +46,14 @@ class filter_tabs_filter_testcase extends advanced_testcase {
         $this->resetAfterTest(true);
         $this->setAdminUser();
 
-        filter_manager::reset_caches();
-        filter_set_global_state('tabs', TEXTFILTER_ON);
+        \filter_manager::reset_caches();
+        \filter_set_global_state('tabs', TEXTFILTER_ON);
     }
 
     /**
      * Test filter no modified
      */
-    public function test_filter_no_modified() {
+    public function test_filter_no_modified(): void {
         $html = '<p>No modificable content</p>';
         $filtered = format_text($html, FORMAT_HTML);
         $this->assertEquals($html, $filtered);
@@ -58,7 +62,7 @@ class filter_tabs_filter_testcase extends advanced_testcase {
     /**
      * Test filter modified yui
      */
-    public function test_filter_modified_yui() {
+    public function test_filter_modified_yui(): void {
         set_config('enablebootstrap', config::YUI_TABS, 'filter_tabs');
 
         $html = '<p>{%:First tab}Some text{%}{%:Second tab}Another text{%}</p>';
@@ -69,7 +73,7 @@ class filter_tabs_filter_testcase extends advanced_testcase {
     /**
      * Test filter modified bootstrap2
      */
-    public function test_filter_modified_bootstrap2() {
+    public function test_filter_modified_bootstrap2(): void {
         set_config('enablebootstrap', config::BOOTSTRAP_2_TABS, 'filter_tabs');
 
         $html = '<p>{%:First tab}Some text{%}{%:Second tab}Another text{%}</p>';
@@ -81,7 +85,7 @@ class filter_tabs_filter_testcase extends advanced_testcase {
     /**
      * Test filter modified bootstrap4
      */
-    public function test_filter_modified_bootstrap4() {
+    public function test_filter_modified_bootstrap4(): void {
         set_config('enablebootstrap', config::BOOTSTRAP_4_TABS, 'filter_tabs');
 
         $html = '<p>{%:First tab}Some text{%}{%:Second tab}Another text{%}</p>';
