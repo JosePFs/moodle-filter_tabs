@@ -1,9 +1,17 @@
 {
     "name": "moodle-filter_tabs",
     "devDependencies": {
-        "grunt": "^1.5.3",
+        "grunt": "^1.6.1",
         "grunt-contrib-less": "^2.0.0",
-        "grunt-contrib-watch": "^1.1.0",
+        "grunt-contrib-watch": "1.1.0",
         "grunt-load-gruntfile": "0.0.2"
+    },
+    "overrides": {
+        "lodash": "^4.17.23",
+        "minimatch": "^3.1.2",
+        "picomatch": "^2.3.2",
+        "qs": "^6.15.2",
+        "micromatch": "^4.0.8",
+        "semver": "^7.7.2"
     }
 }
